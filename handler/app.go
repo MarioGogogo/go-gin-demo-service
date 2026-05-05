@@ -2,6 +2,9 @@ package handler
 
 import (
 	"net/http"
+	"os"
+	"path/filepath"
+	"strings"
 
 	"go-gin-demo-service/database"
 	"go-gin-demo-service/model"
@@ -17,6 +20,13 @@ func CheckUpdate(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusOK, model.Fail(model.CodeServerError, "查询更新信息失败"))
 		return
+	}
+
+	// 从 downloadUrl 中提取文件名，读取 static 目录中的实际文件大小
+	fileName := info.DownloadUrl[strings.LastIndex(info.DownloadUrl, "/")+1:]
+	staticPath := filepath.Join(staticDir, fileName)
+	if f, err := os.Stat(staticPath); err == nil {
+		info.FileSize = f.Size()
 	}
 
 	c.JSON(http.StatusOK, model.Ok(info))

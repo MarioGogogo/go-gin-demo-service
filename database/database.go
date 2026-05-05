@@ -24,6 +24,7 @@ func InitDB() {
 	fmt.Println("数据库连接成功")
 
 	createTables()
+	migrateTables()
 	seedData()
 }
 
@@ -72,6 +73,16 @@ func createTables() {
 		}
 	}
 	fmt.Println("数据表创建完成")
+}
+
+func migrateTables() {
+	migrations := []string{
+		`ALTER TABLE modules ADD COLUMN IF NOT EXISTS code VARCHAR(100)`,
+		`ALTER TABLE modules ADD COLUMN IF NOT EXISTS download_url VARCHAR(1000)`,
+	}
+	for _, m := range migrations {
+		DB.Exec(m)
+	}
 }
 
 func seedData() {

@@ -45,6 +45,9 @@ func main() {
 		api.GET("/:id/download", handler.DownloadModule)
 	}
 
+	// 分包模块
+	r.GET("/api/chunk-modules", handler.GetChunkModuleList)
+
 	// 健康检查
 	r.GET("/health", func(c *gin.Context) {
 		c.JSON(200, gin.H{"status": "ok"})
