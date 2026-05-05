@@ -1,0 +1,1513 @@
+(self["webpackChunkHotelRepack"] = self["webpackChunkHotelRepack"] || []).push([["hotel-dining"], {
+60489: (function (__unused_rspack_module, exports, __webpack_require__) {
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "default", ({
+    enumerable: true,
+    get: function() {
+        return _default;
+    }
+}));
+var _extends = __webpack_require__(97180);
+var _interop_require_default = __webpack_require__(95462);
+var _interop_require_wildcard = __webpack_require__(85465);
+var _jsxruntime = __webpack_require__(14056);
+var _react = /*#__PURE__*/ _interop_require_wildcard._(__webpack_require__(73364));
+var _reactnative = __webpack_require__(25472);
+var _MaterialIcons = /*#__PURE__*/ _interop_require_default._(__webpack_require__(96346));
+var _reactnativereanimated = /*#__PURE__*/ _interop_require_wildcard._(__webpack_require__(58048));
+var COLORS = {
+    accent: '#F97316',
+    card: '#FFFFFF',
+    text: '#1E293B'
+};
+var _worklet_13318925066468_init_data = {
+    code: "function CartButtonTsx1(){const{scale}=this.__closure;return{transform:[{scale:scale.value}]};}"
+};
+var CartButton = function(param) {
+    var totalCount = param.totalCount, totalPrice = param.totalPrice, onPress = param.onPress;
+    var scale = (0, _reactnativereanimated.useSharedValue)(1);
+    var animatedStyle = (0, _reactnativereanimated.useAnimatedStyle)(function CartButtonTsx1Factory(param) {
+        var _worklet_13318925066468_init_data = param._worklet_13318925066468_init_data, scale = param.scale;
+        var CartButtonTsx1 = function() {
+            return {
+                transform: [
+                    {
+                        scale: scale.value
+                    }
+                ]
+            };
+        };
+        CartButtonTsx1.__closure = {
+            scale: scale
+        };
+        CartButtonTsx1.__workletHash = 13318925066468;
+        CartButtonTsx1.__initData = _worklet_13318925066468_init_data;
+        return CartButtonTsx1;
+    }({
+        _worklet_13318925066468_init_data: _worklet_13318925066468_init_data,
+        scale: scale
+    }));
+    var onPressIn = (0, _react.useCallback)(function() {
+        scale.value = (0, _reactnativereanimated.withSpring)(0.96);
+    }, []);
+    var onPressOut = (0, _react.useCallback)(function() {
+        scale.value = (0, _reactnativereanimated.withSpring)(1);
+    }, []);
+    if (totalCount === 0) return null;
+    return /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.TouchableOpacity, {
+        onPressIn: onPressIn,
+        onPressOut: onPressOut,
+        onPress: onPress,
+        activeOpacity: 0.9,
+        style: styles.wrapper,
+        children: /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnativereanimated.default.View, {
+            style: [
+                styles.container,
+                animatedStyle
+            ],
+            children: [
+                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                    style: styles.iconWrap,
+                    children: [
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_MaterialIcons.default, {
+                            name: "shopping-bag",
+                            size: 22,
+                            color: "#FFFFFF"
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.View, {
+                            style: styles.badge,
+                            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                                style: styles.badgeText,
+                                children: totalCount
+                            })
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                    style: styles.priceWrap,
+                    children: [
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                            style: styles.priceSymbol,
+                            children: "\xa5"
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                            style: styles.priceValue,
+                            children: totalPrice
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.View, {
+                    style: styles.submitBtn,
+                    children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                        style: styles.submitText,
+                        children: "去下单"
+                    })
+                })
+            ]
+        })
+    });
+};
+var styles = _reactnative.StyleSheet.create({
+    wrapper: {
+        position: 'absolute',
+        bottom: 30,
+        left: 16,
+        right: 16
+    },
+    container: _extends._({
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#1E293B',
+        borderRadius: 28,
+        paddingLeft: 10,
+        paddingRight: 5,
+        paddingVertical: 6
+    }, _reactnative.Platform.select({
+        ios: {
+            shadowColor: '#000',
+            shadowOffset: {
+                width: 0,
+                height: 6
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 12
+        },
+        android: {
+            elevation: 8
+        }
+    })),
+    iconWrap: {
+        position: 'relative',
+        width: 44,
+        height: 44,
+        borderRadius: 22,
+        backgroundColor: COLORS.accent,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    badge: {
+        position: 'absolute',
+        top: -4,
+        right: -4,
+        minWidth: 18,
+        height: 18,
+        borderRadius: 9,
+        backgroundColor: '#EF4444',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 4
+    },
+    badgeText: {
+        fontSize: 10,
+        fontWeight: '700',
+        color: '#FFFFFF'
+    },
+    priceWrap: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'baseline',
+        marginLeft: 14
+    },
+    priceSymbol: {
+        fontSize: 13,
+        fontWeight: '600',
+        color: '#FFFFFF'
+    },
+    priceValue: {
+        fontSize: 22,
+        fontWeight: '700',
+        color: '#FFFFFF'
+    },
+    submitBtn: {
+        backgroundColor: COLORS.accent,
+        paddingHorizontal: 22,
+        paddingVertical: 10,
+        borderRadius: 22,
+        marginLeft: 10
+    },
+    submitText: {
+        fontSize: 14,
+        fontWeight: '700',
+        color: '#FFFFFF'
+    }
+});
+var _default = CartButton;
+
+
+}),
+71772: (function (__unused_rspack_module, exports, __webpack_require__) {
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "default", ({
+    enumerable: true,
+    get: function() {
+        return _default;
+    }
+}));
+var _interop_require_default = __webpack_require__(95462);
+var _jsxruntime = __webpack_require__(14056);
+var _react = /*#__PURE__*/ _interop_require_default._(__webpack_require__(73364));
+var _reactnative = __webpack_require__(25472);
+var _MaterialIcons = /*#__PURE__*/ _interop_require_default._(__webpack_require__(96346));
+var COLORS = {
+    active: '#F97316',
+    activeBg: '#FFF7ED',
+    inactive: '#64748b',
+    inactiveBg: '#F1F5F9'
+};
+var CategoryScroll = function(param) {
+    var categories = param.categories, selectedId = param.selectedId, onSelect = param.onSelect;
+    return /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.View, {
+        style: styles.container,
+        children: categories.map(function(cat) {
+            var isActive = cat.id === selectedId;
+            return /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.TouchableOpacity, {
+                style: [
+                    styles.item,
+                    isActive && styles.itemActive
+                ],
+                onPress: function() {
+                    return onSelect(cat.id);
+                },
+                activeOpacity: 0.7,
+                children: [
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)(_MaterialIcons.default, {
+                        name: cat.icon,
+                        size: 20,
+                        color: isActive ? COLORS.active : COLORS.inactive
+                    }),
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                        style: [
+                            styles.label,
+                            isActive && styles.labelActive
+                        ],
+                        children: cat.name
+                    })
+                ]
+            }, cat.id);
+        })
+    });
+};
+var styles = _reactnative.StyleSheet.create({
+    container: {
+        flexDirection: 'row',
+        paddingHorizontal: 16,
+        paddingVertical: 10,
+        gap: 8
+    },
+    item: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 14,
+        paddingVertical: 8,
+        borderRadius: 20,
+        backgroundColor: COLORS.inactiveBg,
+        gap: 5
+    },
+    itemActive: {
+        backgroundColor: COLORS.activeBg,
+        borderWidth: 1,
+        borderColor: COLORS.active + '30'
+    },
+    label: {
+        fontSize: 13,
+        fontWeight: '500',
+        color: COLORS.inactive
+    },
+    labelActive: {
+        color: COLORS.active,
+        fontWeight: '600'
+    }
+});
+var _default = CategoryScroll;
+
+
+}),
+53641: (function (__unused_rspack_module, exports, __webpack_require__) {
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "default", ({
+    enumerable: true,
+    get: function() {
+        return _default;
+    }
+}));
+var _extends = __webpack_require__(97180);
+var _interop_require_default = __webpack_require__(95462);
+var _interop_require_wildcard = __webpack_require__(85465);
+var _jsxruntime = __webpack_require__(14056);
+var _react = /*#__PURE__*/ _interop_require_wildcard._(__webpack_require__(73364));
+var _reactnative = __webpack_require__(25472);
+var _MaterialIcons = /*#__PURE__*/ _interop_require_default._(__webpack_require__(96346));
+var _reactnativereanimated = /*#__PURE__*/ _interop_require_wildcard._(__webpack_require__(58048));
+var COLORS = {
+    accent: '#F97316',
+    text: '#1E293B',
+    textLight: '#64748b',
+    card: '#FFFFFF',
+    tagBg: '#FFF7ED'
+};
+var _worklet_3553026007140_init_data = {
+    code: "function MenuItemCardTsx1(){const{addScale}=this.__closure;return{transform:[{scale:addScale.value}]};}"
+};
+var MenuItemCard = function(param) {
+    var item = param.item, index = param.index, quantity = param.quantity, onAdd = param.onAdd, onRemove = param.onRemove;
+    var addScale = (0, _reactnativereanimated.useSharedValue)(1);
+    var addAnimatedStyle = (0, _reactnativereanimated.useAnimatedStyle)(function MenuItemCardTsx1Factory(param) {
+        var _worklet_3553026007140_init_data = param._worklet_3553026007140_init_data, addScale = param.addScale;
+        var MenuItemCardTsx1 = function() {
+            return {
+                transform: [
+                    {
+                        scale: addScale.value
+                    }
+                ]
+            };
+        };
+        MenuItemCardTsx1.__closure = {
+            addScale: addScale
+        };
+        MenuItemCardTsx1.__workletHash = 3553026007140;
+        MenuItemCardTsx1.__initData = _worklet_3553026007140_init_data;
+        return MenuItemCardTsx1;
+    }({
+        _worklet_3553026007140_init_data: _worklet_3553026007140_init_data,
+        addScale: addScale
+    }));
+    var onPressIn = (0, _react.useCallback)(function() {
+        addScale.value = (0, _reactnativereanimated.withSpring)(0.9);
+    }, []);
+    var onPressOut = (0, _react.useCallback)(function() {
+        addScale.value = (0, _reactnativereanimated.withSpring)(1);
+    }, []);
+    return /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnativereanimated.default.View, {
+        entering: _reactnativereanimated.FadeInDown.delay(index * 40).springify(),
+        children: /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+            style: styles.card,
+            children: [
+                /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.View, {
+                    style: [
+                        styles.imageBlock,
+                        {
+                            backgroundColor: item.imageColor
+                        }
+                    ],
+                    children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_MaterialIcons.default, {
+                        name: "restaurant",
+                        size: 24,
+                        color: "rgba(0,0,0,0.15)"
+                    })
+                }),
+                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                    style: styles.info,
+                    children: [
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                            style: styles.nameRow,
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                                    style: styles.name,
+                                    numberOfLines: 1,
+                                    children: item.name
+                                }),
+                                item.spicy && /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                                    style: styles.spicy,
+                                    children: "辣"
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                            style: styles.desc,
+                            numberOfLines: 1,
+                            children: item.description
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.View, {
+                            style: styles.tagsRow,
+                            children: item.tags.map(function(tag) {
+                                return /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.View, {
+                                    style: styles.tag,
+                                    children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                                        style: styles.tagText,
+                                        children: tag
+                                    })
+                                }, tag);
+                            })
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                            style: styles.bottomRow,
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                                    style: styles.priceWrap,
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                                            style: styles.priceSymbol,
+                                            children: "\xa5"
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                                            style: styles.priceValue,
+                                            children: item.price
+                                        })
+                                    ]
+                                }),
+                                quantity === 0 ? /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.TouchableOpacity, {
+                                    onPressIn: onPressIn,
+                                    onPressOut: onPressOut,
+                                    onPress: function() {
+                                        return onAdd(item);
+                                    },
+                                    activeOpacity: 0.8,
+                                    children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnativereanimated.default.View, {
+                                        style: [
+                                            styles.addBtn,
+                                            addAnimatedStyle
+                                        ],
+                                        children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_MaterialIcons.default, {
+                                            name: "add",
+                                            size: 20,
+                                            color: "#FFFFFF"
+                                        })
+                                    })
+                                }) : /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                                    style: styles.stepper,
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.TouchableOpacity, {
+                                            onPress: function() {
+                                                return onRemove(item);
+                                            },
+                                            activeOpacity: 0.7,
+                                            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.View, {
+                                                style: styles.stepBtn,
+                                                children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_MaterialIcons.default, {
+                                                    name: "remove",
+                                                    size: 16,
+                                                    color: COLORS.accent
+                                                })
+                                            })
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                                            style: styles.quantityText,
+                                            children: quantity
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.TouchableOpacity, {
+                                            onPress: function() {
+                                                return onAdd(item);
+                                            },
+                                            activeOpacity: 0.7,
+                                            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.View, {
+                                                style: styles.stepBtn,
+                                                children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_MaterialIcons.default, {
+                                                    name: "add",
+                                                    size: 16,
+                                                    color: COLORS.accent
+                                                })
+                                            })
+                                        })
+                                    ]
+                                })
+                            ]
+                        })
+                    ]
+                })
+            ]
+        })
+    });
+};
+var styles = _reactnative.StyleSheet.create({
+    card: _extends._({
+        flexDirection: 'row',
+        backgroundColor: COLORS.card,
+        borderRadius: 14,
+        padding: 10
+    }, _reactnative.Platform.select({
+        ios: {
+            shadowColor: '#1E293B',
+            shadowOffset: {
+                width: 0,
+                height: 2
+            },
+            shadowOpacity: 0.05,
+            shadowRadius: 6
+        },
+        android: {
+            elevation: 2
+        }
+    })),
+    imageBlock: {
+        width: 80,
+        height: 80,
+        borderRadius: 12,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    info: {
+        flex: 1,
+        paddingLeft: 10,
+        justifyContent: 'space-between'
+    },
+    nameRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 6
+    },
+    name: {
+        fontSize: 15,
+        fontWeight: '600',
+        color: COLORS.text
+    },
+    spicy: {
+        fontSize: 10,
+        fontWeight: '600',
+        color: '#EF4444',
+        backgroundColor: '#FEF2F2',
+        paddingHorizontal: 5,
+        paddingVertical: 1,
+        borderRadius: 4
+    },
+    desc: {
+        fontSize: 12,
+        color: COLORS.textLight,
+        marginTop: 2
+    },
+    tagsRow: {
+        flexDirection: 'row',
+        gap: 4,
+        marginTop: 4
+    },
+    tag: {
+        paddingHorizontal: 6,
+        paddingVertical: 1,
+        borderRadius: 4,
+        backgroundColor: COLORS.tagBg
+    },
+    tagText: {
+        fontSize: 10,
+        color: COLORS.accent,
+        fontWeight: '500'
+    },
+    bottomRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-end',
+        marginTop: 4
+    },
+    priceWrap: {
+        flexDirection: 'row',
+        alignItems: 'baseline'
+    },
+    priceSymbol: {
+        fontSize: 12,
+        fontWeight: '600',
+        color: COLORS.accent
+    },
+    priceValue: {
+        fontSize: 18,
+        fontWeight: '700',
+        color: COLORS.accent
+    },
+    addBtn: {
+        width: 30,
+        height: 30,
+        borderRadius: 15,
+        backgroundColor: COLORS.accent,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    stepper: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8
+    },
+    stepBtn: {
+        width: 26,
+        height: 26,
+        borderRadius: 13,
+        borderWidth: 1.5,
+        borderColor: COLORS.accent,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    quantityText: {
+        fontSize: 15,
+        fontWeight: '600',
+        color: COLORS.text,
+        minWidth: 16,
+        textAlign: 'center'
+    }
+});
+var _default = MenuItemCard;
+
+
+}),
+89956: (function (__unused_rspack_module, exports, __webpack_require__) {
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "default", ({
+    enumerable: true,
+    get: function() {
+        return _default;
+    }
+}));
+var _interop_require_default = __webpack_require__(95462);
+var _interop_require_wildcard = __webpack_require__(85465);
+var _jsxruntime = __webpack_require__(14056);
+var _react = /*#__PURE__*/ _interop_require_wildcard._(__webpack_require__(73364));
+var _reactnative = __webpack_require__(25472);
+var _MaterialIcons = /*#__PURE__*/ _interop_require_default._(__webpack_require__(96346));
+var _reactnativereanimated = /*#__PURE__*/ _interop_require_wildcard._(__webpack_require__(58048));
+var COLORS = {
+    accent: '#F97316',
+    text: '#1E293B',
+    textLight: '#64748b',
+    card: '#FFFFFF'
+};
+var OrderModal = function(param) {
+    var visible = param.visible, cartItems = param.cartItems, totalPrice = param.totalPrice, onClose = param.onClose, onConfirm = param.onConfirm, onRemove = param.onRemove, onAdd = param.onAdd;
+    var renderItem = (0, _react.useCallback)(function(param) {
+        var item = param.item;
+        return /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+            style: styles.itemRow,
+            children: [
+                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                    style: styles.itemInfo,
+                    children: [
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                            style: styles.itemName,
+                            numberOfLines: 1,
+                            children: item.name
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.Text, {
+                            style: styles.itemPrice,
+                            children: [
+                                "\xa5",
+                                item.price
+                            ]
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                    style: styles.stepper,
+                    children: [
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.TouchableOpacity, {
+                            onPress: function() {
+                                return onRemove(item.id);
+                            },
+                            activeOpacity: 0.7,
+                            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.View, {
+                                style: styles.stepBtn,
+                                children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_MaterialIcons.default, {
+                                    name: "remove",
+                                    size: 14,
+                                    color: COLORS.accent
+                                })
+                            })
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                            style: styles.quantityText,
+                            children: item.quantity
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.TouchableOpacity, {
+                            onPress: function() {
+                                return onAdd(item.id);
+                            },
+                            activeOpacity: 0.7,
+                            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.View, {
+                                style: styles.stepBtn,
+                                children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_MaterialIcons.default, {
+                                    name: "add",
+                                    size: 14,
+                                    color: COLORS.accent
+                                })
+                            })
+                        })
+                    ]
+                })
+            ]
+        });
+    }, [
+        onRemove,
+        onAdd
+    ]);
+    return /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Modal, {
+        visible: visible,
+        transparent: true,
+        animationType: "slide",
+        onRequestClose: onClose,
+        children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.TouchableOpacity, {
+            style: styles.overlay,
+            activeOpacity: 1,
+            onPress: onClose,
+            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnativereanimated.default.View, {
+                entering: _reactnativereanimated.FadeInUp.springify(),
+                style: styles.sheet,
+                children: /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.TouchableOpacity, {
+                    activeOpacity: 1,
+                    children: [
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                            style: styles.header,
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                                    style: styles.title,
+                                    children: "订单详情"
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.TouchableOpacity, {
+                                    onPress: onClose,
+                                    style: styles.closeBtn,
+                                    children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_MaterialIcons.default, {
+                                        name: "close",
+                                        size: 22,
+                                        color: COLORS.textLight
+                                    })
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.FlatList, {
+                            data: cartItems,
+                            keyExtractor: function(item) {
+                                return item.id;
+                            },
+                            renderItem: renderItem,
+                            scrollEnabled: false,
+                            ItemSeparatorComponent: function() {
+                                return /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.View, {
+                                    style: styles.separator
+                                });
+                            }
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                            style: styles.footer,
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                                    style: styles.totalRow,
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                                            style: styles.totalLabel,
+                                            children: "合计"
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                                            style: styles.totalPriceWrap,
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                                                    style: styles.totalSymbol,
+                                                    children: "\xa5"
+                                                }),
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                                                    style: styles.totalValue,
+                                                    children: totalPrice
+                                                })
+                                            ]
+                                        })
+                                    ]
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.TouchableOpacity, {
+                                    style: styles.confirmBtn,
+                                    onPress: onConfirm,
+                                    activeOpacity: 0.8,
+                                    children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                                        style: styles.confirmText,
+                                        children: "确认下单"
+                                    })
+                                })
+                            ]
+                        })
+                    ]
+                })
+            })
+        })
+    });
+};
+var styles = _reactnative.StyleSheet.create({
+    overlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.4)',
+        justifyContent: 'flex-end'
+    },
+    sheet: {
+        backgroundColor: COLORS.card,
+        borderTopLeftRadius: 24,
+        borderTopRightRadius: 24,
+        paddingHorizontal: 20,
+        paddingTop: 16,
+        paddingBottom: 34,
+        maxHeight: '70%'
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 16
+    },
+    title: {
+        fontSize: 18,
+        fontWeight: '700',
+        color: COLORS.text
+    },
+    closeBtn: {
+        padding: 4
+    },
+    itemRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingVertical: 12
+    },
+    itemInfo: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginRight: 12
+    },
+    itemName: {
+        fontSize: 15,
+        fontWeight: '500',
+        color: COLORS.text,
+        flex: 1
+    },
+    itemPrice: {
+        fontSize: 14,
+        color: COLORS.textLight,
+        marginLeft: 12
+    },
+    stepper: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 6
+    },
+    stepBtn: {
+        width: 24,
+        height: 24,
+        borderRadius: 12,
+        borderWidth: 1.5,
+        borderColor: COLORS.accent,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    quantityText: {
+        fontSize: 14,
+        fontWeight: '600',
+        color: COLORS.text,
+        minWidth: 14,
+        textAlign: 'center'
+    },
+    separator: {
+        height: 1,
+        backgroundColor: '#F1F5F9'
+    },
+    footer: {
+        marginTop: 16,
+        paddingTop: 16,
+        borderTopWidth: 1,
+        borderTopColor: '#F1F5F9'
+    },
+    totalRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 14
+    },
+    totalLabel: {
+        fontSize: 15,
+        color: COLORS.textLight
+    },
+    totalPriceWrap: {
+        flexDirection: 'row',
+        alignItems: 'baseline'
+    },
+    totalSymbol: {
+        fontSize: 14,
+        fontWeight: '600',
+        color: COLORS.accent
+    },
+    totalValue: {
+        fontSize: 26,
+        fontWeight: '700',
+        color: COLORS.accent
+    },
+    confirmBtn: {
+        backgroundColor: COLORS.accent,
+        height: 50,
+        borderRadius: 16,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    confirmText: {
+        fontSize: 16,
+        fontWeight: '700',
+        color: '#FFFFFF'
+    }
+});
+var _default = OrderModal;
+
+
+}),
+57764: (function (__unused_rspack_module, exports, __webpack_require__) {
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "default", ({
+    enumerable: true,
+    get: function() {
+        return _default;
+    }
+}));
+var _extends = __webpack_require__(97180);
+var _interop_require_default = __webpack_require__(95462);
+var _interop_require_wildcard = __webpack_require__(85465);
+var _object_spread_props = __webpack_require__(5801);
+var _sliced_to_array = __webpack_require__(30703);
+var _jsxruntime = __webpack_require__(14056);
+var _react = /*#__PURE__*/ _interop_require_wildcard._(__webpack_require__(73364));
+var _reactnative = __webpack_require__(25472);
+var _reactnativesafeareacontext = __webpack_require__(85911);
+var _MaterialIcons = /*#__PURE__*/ _interop_require_default._(__webpack_require__(96346));
+var _Toast = /*#__PURE__*/ _interop_require_default._(__webpack_require__(81092));
+var _mockData = __webpack_require__(47464);
+var _CategoryScroll = /*#__PURE__*/ _interop_require_default._(__webpack_require__(71772));
+var _MenuItemCard = /*#__PURE__*/ _interop_require_default._(__webpack_require__(53641));
+var _CartButton = /*#__PURE__*/ _interop_require_default._(__webpack_require__(60489));
+var _OrderModal = /*#__PURE__*/ _interop_require_default._(__webpack_require__(89956));
+var COLORS = {
+    accent: '#F97316',
+    bg: '#FFF7ED',
+    card: '#FFFFFF',
+    text: '#1E293B',
+    textLight: '#64748b'
+};
+var HotelDining = function(param) {
+    var navigation = param.navigation;
+    var insets = (0, _reactnativesafeareacontext.useSafeAreaInsets)();
+    var toastRef = (0, _react.useRef)(null);
+    var _useState = _sliced_to_array._((0, _react.useState)(_mockData.CATEGORIES[0].id), 2), selectedCategoryId = _useState[0], setSelectedCategoryId = _useState[1];
+    var _useState1 = _sliced_to_array._((0, _react.useState)(new Map()), 2), cart = _useState1[0], setCart = _useState1[1];
+    var _useState2 = _sliced_to_array._((0, _react.useState)(false), 2), modalVisible = _useState2[0], setModalVisible = _useState2[1];
+    var filteredItems = (0, _react.useMemo)(function() {
+        return _mockData.MENU_ITEMS.filter(function(item) {
+            return item.categoryId === selectedCategoryId;
+        });
+    }, [
+        selectedCategoryId
+    ]);
+    var cartItems = (0, _react.useMemo)(function() {
+        return Array.from(cart.values());
+    }, [
+        cart
+    ]);
+    var totalCount = (0, _react.useMemo)(function() {
+        return cartItems.reduce(function(sum, item) {
+            return sum + item.quantity;
+        }, 0);
+    }, [
+        cartItems
+    ]);
+    var totalPrice = (0, _react.useMemo)(function() {
+        return cartItems.reduce(function(sum, item) {
+            return sum + item.price * item.quantity;
+        }, 0);
+    }, [
+        cartItems
+    ]);
+    var getItemQuantity = (0, _react.useCallback)(function(itemId) {
+        var _cart_get;
+        return ((_cart_get = cart.get(itemId)) == null ? void 0 : _cart_get.quantity) || 0;
+    }, [
+        cart
+    ]);
+    var handleAdd = (0, _react.useCallback)(function(item) {
+        setCart(function(prev) {
+            var newCart = new Map(prev);
+            var existing = newCart.get(item.id);
+            if (existing) {
+                newCart.set(item.id, _object_spread_props._(_extends._({}, existing), {
+                    quantity: existing.quantity + 1
+                }));
+            } else {
+                newCart.set(item.id, _object_spread_props._(_extends._({}, item), {
+                    quantity: 1
+                }));
+            }
+            return newCart;
+        });
+    }, []);
+    var handleRemove = (0, _react.useCallback)(function(item) {
+        setCart(function(prev) {
+            var newCart = new Map(prev);
+            var existing = newCart.get(item.id);
+            if (existing) {
+                if (existing.quantity <= 1) {
+                    newCart.delete(item.id);
+                } else {
+                    newCart.set(item.id, _object_spread_props._(_extends._({}, existing), {
+                        quantity: existing.quantity - 1
+                    }));
+                }
+            }
+            return newCart;
+        });
+    }, []);
+    var handleModalAdd = (0, _react.useCallback)(function(itemId) {
+        var item = _mockData.MENU_ITEMS.find(function(m) {
+            return m.id === itemId;
+        });
+        if (item) handleAdd(item);
+    }, [
+        handleAdd
+    ]);
+    var handleModalRemove = (0, _react.useCallback)(function(itemId) {
+        var item = _mockData.MENU_ITEMS.find(function(m) {
+            return m.id === itemId;
+        });
+        if (item) handleRemove(item);
+    }, [
+        handleRemove
+    ]);
+    var handleConfirmOrder = (0, _react.useCallback)(function() {
+        var _toastRef_current;
+        setModalVisible(false);
+        setCart(new Map());
+        (_toastRef_current = toastRef.current) == null ? void 0 : _toastRef_current.show({
+            type: 'success',
+            message: `订单已提交，共 ${totalCount} 件商品，合计 ¥${totalPrice}`,
+            duration: 2500
+        });
+    }, [
+        totalCount,
+        totalPrice
+    ]);
+    var renderItem = (0, _react.useCallback)(function(param) {
+        var item = param.item, index = param.index;
+        return /*#__PURE__*/ (0, _jsxruntime.jsx)(_MenuItemCard.default, {
+            item: item,
+            index: index,
+            quantity: getItemQuantity(item.id),
+            onAdd: handleAdd,
+            onRemove: handleRemove
+        });
+    }, [
+        getItemQuantity,
+        handleAdd,
+        handleRemove
+    ]);
+    return /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+        style: styles.container,
+        children: [
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.StatusBar, {
+                barStyle: "dark-content"
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.View, {
+                style: [
+                    styles.header,
+                    {
+                        paddingTop: insets.top + 12
+                    }
+                ],
+                children: /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                    style: styles.headerRow,
+                    children: [
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.TouchableOpacity, {
+                            onPress: function() {
+                                return navigation.goBack();
+                            },
+                            style: styles.backBtn,
+                            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_MaterialIcons.default, {
+                                name: "arrow-back-ios",
+                                size: 20,
+                                color: COLORS.text
+                            })
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                            style: styles.headerTitle,
+                            children: "餐饮服务"
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.TouchableOpacity, {
+                            style: styles.searchBtn,
+                            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_MaterialIcons.default, {
+                                name: "search",
+                                size: 22,
+                                color: COLORS.textLight
+                            })
+                        })
+                    ]
+                })
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_CategoryScroll.default, {
+                categories: _mockData.CATEGORIES,
+                selectedId: selectedCategoryId,
+                onSelect: setSelectedCategoryId
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.FlatList, {
+                data: filteredItems,
+                keyExtractor: function(item) {
+                    return item.id;
+                },
+                renderItem: renderItem,
+                showsVerticalScrollIndicator: false,
+                contentContainerStyle: styles.listContent,
+                ItemSeparatorComponent: function() {
+                    return /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.View, {
+                        style: styles.separator
+                    });
+                }
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_CartButton.default, {
+                totalCount: totalCount,
+                totalPrice: totalPrice,
+                onPress: function() {
+                    return setModalVisible(true);
+                }
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_OrderModal.default, {
+                visible: modalVisible,
+                cartItems: cartItems,
+                totalPrice: totalPrice,
+                onClose: function() {
+                    return setModalVisible(false);
+                },
+                onConfirm: handleConfirmOrder,
+                onRemove: handleModalRemove,
+                onAdd: handleModalAdd
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_Toast.default, {
+                ref: toastRef
+            })
+        ]
+    });
+};
+var styles = _reactnative.StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: COLORS.bg
+    },
+    header: _extends._({
+        backgroundColor: COLORS.card,
+        paddingBottom: 12
+    }, _reactnative.Platform.select({
+        ios: {
+            shadowColor: '#1E293B',
+            shadowOffset: {
+                width: 0,
+                height: 1
+            },
+            shadowOpacity: 0.04,
+            shadowRadius: 4
+        },
+        android: {
+            elevation: 2
+        }
+    })),
+    headerRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: 16
+    },
+    backBtn: {
+        padding: 8,
+        marginLeft: -4
+    },
+    headerTitle: {
+        fontSize: 18,
+        fontWeight: '700',
+        color: COLORS.text
+    },
+    searchBtn: {
+        padding: 8
+    },
+    listContent: {
+        paddingHorizontal: 16,
+        paddingTop: 4,
+        paddingBottom: 120
+    },
+    separator: {
+        height: 10
+    }
+});
+var _default = HotelDining;
+
+
+}),
+47464: (function (__unused_rspack_module, exports) {
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: Object.getOwnPropertyDescriptor(all, name).get
+    });
+}
+_export(exports, {
+    get CATEGORIES () {
+        return CATEGORIES;
+    },
+    get MENU_ITEMS () {
+        return MENU_ITEMS;
+    }
+});
+var CATEGORIES = [
+    {
+        id: 'chinese',
+        name: '中餐厅',
+        icon: 'ramen-dining'
+    },
+    {
+        id: 'western',
+        name: '西餐厅',
+        icon: 'dinner-dining'
+    },
+    {
+        id: 'bar',
+        name: '大堂吧',
+        icon: 'local-bar'
+    },
+    {
+        id: 'breakfast',
+        name: '早餐',
+        icon: 'local-cafe'
+    },
+    {
+        id: 'roomservice',
+        name: '客房送餐',
+        icon: 'room-service'
+    }
+];
+var MENU_ITEMS = [
+    // 中餐厅
+    {
+        id: 'm1',
+        categoryId: 'chinese',
+        name: '松鼠桂鱼',
+        price: 128,
+        description: '酸甜适口，外酥里嫩',
+        imageColor: '#FDE68A',
+        spicy: false,
+        tags: [
+            '招牌',
+            '必点'
+        ]
+    },
+    {
+        id: 'm2',
+        categoryId: 'chinese',
+        name: '宫保鸡丁',
+        price: 68,
+        description: '花生酥脆，鸡丁滑嫩',
+        imageColor: '#FCA5A5',
+        spicy: true,
+        tags: [
+            '经典'
+        ]
+    },
+    {
+        id: 'm3',
+        categoryId: 'chinese',
+        name: '麻婆豆腐',
+        price: 48,
+        description: '麻辣鲜香，嫩滑入味',
+        imageColor: '#F87171',
+        spicy: true,
+        tags: [
+            '素食可选'
+        ]
+    },
+    {
+        id: 'm4',
+        categoryId: 'chinese',
+        name: '清蒸鲈鱼',
+        price: 98,
+        description: '鲜嫩爽滑，原汁原味',
+        imageColor: '#93C5FD',
+        spicy: false,
+        tags: [
+            '清淡'
+        ]
+    },
+    {
+        id: 'm5',
+        categoryId: 'chinese',
+        name: '蛋炒饭',
+        price: 28,
+        description: '粒粒分明，锅气十足',
+        imageColor: '#FDE68A',
+        spicy: false,
+        tags: [
+            '主食'
+        ]
+    },
+    {
+        id: 'm6',
+        categoryId: 'chinese',
+        name: '小笼包',
+        price: 38,
+        description: '皮薄馅多，汤汁鲜美',
+        imageColor: '#FDBA74',
+        spicy: false,
+        tags: [
+            '点心'
+        ]
+    },
+    // 西餐厅
+    {
+        id: 'm7',
+        categoryId: 'western',
+        name: '菲力牛排',
+        price: 198,
+        description: '澳洲进口，五分熟',
+        imageColor: '#D4A574',
+        spicy: false,
+        tags: [
+            '招牌'
+        ]
+    },
+    {
+        id: 'm8',
+        categoryId: 'western',
+        name: '凯撒沙拉',
+        price: 58,
+        description: '新鲜罗马生菜配帕玛森',
+        imageColor: '#86EFAC',
+        spicy: false,
+        tags: [
+            '轻食'
+        ]
+    },
+    {
+        id: 'm9',
+        categoryId: 'western',
+        name: '奶油蘑菇汤',
+        price: 48,
+        description: '法式浓汤，奶香四溢',
+        imageColor: '#FDE68A',
+        spicy: false,
+        tags: [
+            '汤品'
+        ]
+    },
+    {
+        id: 'm10',
+        categoryId: 'western',
+        name: '意式肉酱面',
+        price: 68,
+        description: '手工意面配秘制肉酱',
+        imageColor: '#FCA5A5',
+        spicy: false,
+        tags: [
+            '主食'
+        ]
+    },
+    {
+        id: 'm11',
+        categoryId: 'western',
+        name: '提拉米苏',
+        price: 58,
+        description: '经典意式甜品',
+        imageColor: '#D4A574',
+        spicy: false,
+        tags: [
+            '甜品'
+        ]
+    },
+    // 大堂吧
+    {
+        id: 'm12',
+        categoryId: 'bar',
+        name: '特调鸡尾酒',
+        price: 88,
+        description: '调酒师每日限定',
+        imageColor: '#C4B5FD',
+        spicy: false,
+        tags: [
+            '限定'
+        ]
+    },
+    {
+        id: 'm13',
+        categoryId: 'bar',
+        name: '拿铁咖啡',
+        price: 42,
+        description: '精选阿拉比卡豆',
+        imageColor: '#D4A574',
+        spicy: false,
+        tags: [
+            '咖啡'
+        ]
+    },
+    {
+        id: 'm14',
+        categoryId: 'bar',
+        name: '鲜榨果汁',
+        price: 38,
+        description: '当日鲜果现榨',
+        imageColor: '#FDE68A',
+        spicy: false,
+        tags: [
+            '饮品'
+        ]
+    },
+    {
+        id: 'm15',
+        categoryId: 'bar',
+        name: '精酿啤酒',
+        price: 58,
+        description: '比利时进口白啤',
+        imageColor: '#FDE68A',
+        spicy: false,
+        tags: [
+            '酒类'
+        ]
+    },
+    // 早餐
+    {
+        id: 'm16',
+        categoryId: 'breakfast',
+        name: '美式早餐',
+        price: 78,
+        description: '蛋培根吐司配咖啡',
+        imageColor: '#FDBA74',
+        spicy: false,
+        tags: [
+            '套餐'
+        ]
+    },
+    {
+        id: 'm17',
+        categoryId: 'breakfast',
+        name: '中式早点',
+        price: 58,
+        description: '粥品+小笼包+油条',
+        imageColor: '#FDE68A',
+        spicy: false,
+        tags: [
+            '套餐'
+        ]
+    },
+    {
+        id: 'm18',
+        categoryId: 'breakfast',
+        name: '酸奶水果碗',
+        price: 48,
+        description: '希腊酸奶配时令鲜果',
+        imageColor: '#C4B5FD',
+        spicy: false,
+        tags: [
+            '轻食'
+        ]
+    },
+    // 客房送餐
+    {
+        id: 'm19',
+        categoryId: 'roomservice',
+        name: '商务套餐A',
+        price: 98,
+        description: '一荤一素一汤+米饭',
+        imageColor: '#86EFAC',
+        spicy: false,
+        tags: [
+            '套餐'
+        ]
+    },
+    {
+        id: 'm20',
+        categoryId: 'roomservice',
+        name: '商务套餐B',
+        price: 128,
+        description: '两荤一素一汤+米饭',
+        imageColor: '#FDBA74',
+        spicy: false,
+        tags: [
+            '套餐'
+        ]
+    },
+    {
+        id: 'm21',
+        categoryId: 'roomservice',
+        name: '深夜面食',
+        price: 48,
+        description: '22:00后供应',
+        imageColor: '#FCA5A5',
+        spicy: false,
+        tags: [
+            '夜间'
+        ]
+    },
+    {
+        id: 'm22',
+        categoryId: 'roomservice',
+        name: '儿童套餐',
+        price: 68,
+        description: '卡通造型+果汁+水果',
+        imageColor: '#F9A8D4',
+        spicy: false,
+        tags: [
+            '儿童'
+        ]
+    }
+];
+
+
+}),
+
+}]);//# sourceMappingURL=hotel-dining.chunk.bundle.map?platform=android

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>模块管理</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#f0f2f5;color:#333}
+.header{background:#fff;border-bottom:1px solid #e8e8e8;padding:16px 24px;display:flex;align-items:center;justify-content:space-between}
+.header h1{font-size:20px;font-weight:600}
+.container{max-width:1100px;margin:24px auto;padding:0 24px}
+
+.tabs{display:flex;gap:0;margin-bottom:20px;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.tab{flex:1;padding:14px 0;text-align:center;cursor:pointer;font-size:15px;color:#666;border-bottom:2px solid transparent;transition:all .2s}
+.tab:hover{background:#f8f9ff}
+.tab.active{color:#4f6ef7;border-bottom-color:#4f6ef7;background:#f0f3ff;font-weight:500}
+
+.card{background:#fff;border-radius:10px;padding:24px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.card h2{font-size:16px;margin-bottom:18px;color:#444;font-weight:500}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-grid .full{grid-column:1/-1}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group label{font-size:13px;color:#666;font-weight:500}
+.form-group input,.form-group select,.form-group textarea{padding:9px 12px;border:1px solid #d9d9d9;border-radius:7px;font-size:14px;outline:none;transition:border .2s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#4f6ef7;box-shadow:0 0 0 2px rgba(79,110,247,0.1)}
+.form-group textarea{min-height:60px;resize:vertical}
+
+.btn{padding:9px 22px;border:none;border-radius:7px;font-size:14px;cursor:pointer;transition:all .15s;font-weight:500}
+.btn:hover{opacity:.85;transform:translateY(-1px)}
+.btn-primary{background:#4f6ef7;color:#fff}
+.btn-danger{background:#ff4d4f;color:#fff}
+.btn-warning{background:#faad14;color:#fff}
+.btn-info{background:#1890ff;color:#fff}
+.btn-purple{background:#722ed1;color:#fff}
+.btn-sm{padding:5px 14px;font-size:13px}
+.btn-ghost{background:transparent;color:#4f6ef7;border:1px solid #4f6ef7}
+.btn-ghost:hover{background:#f0f3ff}
+
+table{width:100%;border-collapse:collapse}
+th,td{padding:13px 16px;text-align:left;font-size:14px;border-bottom:1px solid #f0f0f0}
+th{background:#fafafa;color:#888;font-weight:500;font-size:13px}
+tr:hover td{background:#fafbff}
+.actions{display:flex;gap:6px;flex-wrap:wrap}
+
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:500}
+.badge-app{background:#e6f7ff;color:#1890ff}
+.badge-module{background:#fff7e6;color:#d46b08}
+
+.empty{text-align:center;padding:48px;color:#bbb;font-size:15px}
+
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.35);z-index:100}
+.modal{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:12px;padding:28px;min-width:420px;max-width:520px;box-shadow:0 6px 30px rgba(0,0,0,0.12)}
+.modal h3{margin-bottom:20px;font-size:17px;font-weight:600}
+.modal .form-group{margin-bottom:14px}
+.modal .form-group input,.modal .form-group textarea{width:100%}
+.modal-footer{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}
+
+.toast{position:fixed;top:24px;right:24px;padding:12px 24px;border-radius:8px;color:#fff;font-size:14px;z-index:200;display:none;font-weight:500;box-shadow:0 4px 12px rgba(0,0,0,0.15)}
+.toast-success{background:#52c41a}
+.toast-error{background:#ff4d4f}
+
+.history-item{padding:14px 0;border-bottom:1px solid #f5f5f5}
+.history-item:last-child{border-bottom:none}
+.history-header{display:flex;justify-content:space-between;margin-bottom:4px}
+.history-version{font-weight:600;font-size:14px}
+.history-time{color:#999;font-size:12px}
+.history-file{font-size:13px;color:#666}
+.history-log{font-size:13px;color:#999;margin-top:3px}
+</style>
+</head>
+<body>
+<div class="header"><h1>模块管理系统</h1></div>
+<div class="container">
+    <div class="tabs">
+        <div class="tab active" onclick="switchTab('app')">App 管理</div>
+        <div class="tab" onclick="switchTab('module')">分包管理</div>
+    </div>
+
+    <!-- App 管理 -->
+    <div id="tab-app">
+        <div class="card">
+            <h2>上传 App</h2>
+            <form id="appForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>版本号</label>
+                        <input type="text" id="appVersion" placeholder="如 1.0.0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>选择文件</label>
+                        <input type="file" id="appFile" required>
+                    </div>
+                    <div class="form-group full">
+                        <label>更新内容</label>
+                        <textarea id="appChangelog" placeholder="请输入更新内容"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">上传</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card">
+            <h2>App 更新记录</h2>
+            <table>
+                <thead><tr><th>版本号</th><th>文件名</th><th>大小</th><th>更新内容</th><th>上传时间</th><th>操作</th></tr></thead>
+                <tbody id="appList"></tbody>
+            </table>
+            <div class="empty" id="appEmpty" style="display:none">暂无 App 记录</div>
+        </div>
+    </div>
+
+    <!-- 分包管理 -->
+    <div id="tab-module" style="display:none">
+        <div class="card">
+            <h2>新增分包</h2>
+            <form id="moduleForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>功能名称</label>
+                        <input type="text" id="moduleName" placeholder="请输入功能名称" required>
+                    </div>
+                    <div class="form-group">
+                        <label>版本号</label>
+                        <input type="text" id="moduleVersion" placeholder="如 1.0.0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>选择文件</label>
+                        <input type="file" id="moduleFile" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">上传</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card">
+            <h2>分包列表</h2>
+            <table>
+                <thead><tr><th>功能名称</th><th>版本号</th><th>文件名</th><th>大小</th><th>上传时间</th><th>操作</th></tr></thead>
+                <tbody id="moduleList"></tbody>
+            </table>
+            <div class="empty" id="moduleEmpty" style="display:none">暂无分包记录</div>
+        </div>
+    </div>
+</div>
+
+<!-- 编辑弹窗 -->
+<div class="modal-overlay" id="editModal">
+    <div class="modal">
+        <h3 id="editTitle">编辑</h3>
+        <input type="hidden" id="editId">
+        <input type="hidden" id="editType">
+        <div class="form-group" id="editNameGroup" style="display:none">
+            <label>功能名称</label>
+            <input type="text" id="editName">
+        </div>
+        <div class="form-group">
+            <label>版本号</label>
+            <input type="text" id="editVersion">
+        </div>
+        <div class="form-group" id="editChangelogGroup">
+            <label>更新内容</label>
+            <textarea id="editChangelog"></textarea>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-ghost" onclick="closeModal('editModal')">取消</button>
+            <button class="btn btn-primary" onclick="submitEdit()">保存</button>
+        </div>
+    </div>
+</div>
+
+<!-- 版本历史弹窗 -->
+<div class="modal-overlay" id="historyModal">
+    <div class="modal">
+        <h3>版本历史</h3>
+        <div id="historyList" style="max-height:360px;overflow-y:auto"></div>
+        <div class="modal-footer">
+            <button class="btn btn-ghost" onclick="closeModal('historyModal')">关闭</button>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API = '';
+
+function formatSize(b) {
+    if (b < 1024) return b + ' B';
+    if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
+    return (b / 1048576).toFixed(1) + ' MB';
+}
+function formatTime(t) { return new Date(t).toLocaleString('zh-CN'); }
+
+function toast(msg, type) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast toast-' + (type || 'success');
+    el.style.display = 'block';
+    setTimeout(() => el.style.display = 'none', 2500);
+}
+
+function switchTab(tab) {
+    document.querySelectorAll('.tab').forEach((t, i) => {
+        t.classList.toggle('active', (tab === 'app' && i === 0) || (tab === 'module' && i === 1));
+    });
+    document.getElementById('tab-app').style.display = tab === 'app' ? '' : 'none';
+    document.getElementById('tab-module').style.display = tab === 'module' ? '' : 'none';
+}
+
+async function loadList() {
+    const res = await fetch(API + '/api/modules');
+    const json = await res.json();
+    const list = json.data.list || [];
+
+    const apps = list.filter(m => m.type === 'app');
+    const modules = list.filter(m => m.type === 'hotel-module');
+
+    // App列表：展开所有版本历史
+    const appTbody = document.getElementById('appList');
+    const appEmpty = document.getElementById('appEmpty');
+    if (apps.length === 0) {
+        appTbody.innerHTML = '';
+        appEmpty.style.display = '';
+    } else {
+        appEmpty.style.display = 'none';
+        let rows = '';
+        apps.forEach(app => {
+            if (app.history && app.history.length > 0) {
+                app.history.slice().reverse().forEach((h, idx) => {
+                    rows += `<tr>
+                        <td><strong>v${h.version}</strong></td>
+                        <td>${h.fileName}</td>
+                        <td>${formatSize(h.fileSize)}</td>
+                        <td>${h.changelog || '-'}</td>
+                        <td>${formatTime(h.createdAt)}</td>
+                        <td class="actions">
+                            <button class="btn btn-info btn-sm" onclick="downloadItem('${app.id}')">下载</button>
+                            <button class="btn btn-warning btn-sm" onclick="openEdit('${app.id}','app','${h.version}','${(h.changelog||'').replace(/'/g,"\\'")}','')">编辑</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteItem('${app.id}','App v${h.version}')">删除</button>
+                        </td>
+                    </tr>`;
+                });
+            }
+        });
+        appTbody.innerHTML = rows;
+    }
+
+    // 分包列表
+    const modTbody = document.getElementById('moduleList');
+    const modEmpty = document.getElementById('moduleEmpty');
+    if (modules.length === 0) {
+        modTbody.innerHTML = '';
+        modEmpty.style.display = '';
+    } else {
+        modEmpty.style.display = 'none';
+        modTbody.innerHTML = modules.map(m => `<tr>
+            <td><strong>${m.name}</strong></td>
+            <td>v${m.version}</td>
+            <td>${m.fileName}</td>
+            <td>${formatSize(m.fileSize)}</td>
+            <td>${formatTime(m.updatedAt)}</td>
+            <td class="actions">
+                <button class="btn btn-info btn-sm" onclick="downloadItem('${m.id}')">下载</button>
+                <button class="btn btn-purple btn-sm" onclick="showHistory('${m.id}')">历史</button>
+                <button class="btn btn-warning btn-sm" onclick="openEdit('${m.id}','module','${m.version}','${(m.changelog||'').replace(/'/g,"\\'")}','${m.name.replace(/'/g,"\\'")}')">编辑</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteItem('${m.id}','${m.name}')">删除</button>
+            </td>
+        </tr>`).join('');
+    }
+}
+
+// 上传App
+document.getElementById('appForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = new FormData();
+    form.append('file', document.getElementById('appFile').files[0]);
+    form.append('type', 'app');
+    form.append('version', document.getElementById('appVersion').value);
+    form.append('changelog', document.getElementById('appChangelog').value);
+    const res = await fetch(API + '/api/modules/upload', { method: 'POST', body: form });
+    const json = await res.json();
+    if (json.success) { toast('上传成功'); e.target.reset(); loadList(); }
+    else toast(json.message, 'error');
+});
+
+// 上传分包
+document.getElementById('moduleForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = new FormData();
+    form.append('file', document.getElementById('moduleFile').files[0]);
+    form.append('type', 'hotel-module');
+    form.append('name', document.getElementById('moduleName').value);
+    form.append('version', document.getElementById('moduleVersion').value);
+    const res = await fetch(API + '/api/modules/upload', { method: 'POST', body: form });
+    const json = await res.json();
+    if (json.success) { toast('上传成功'); e.target.reset(); loadList(); }
+    else toast(json.message, 'error');
+});
+
+// 下载
+function downloadItem(id) { window.open(API + '/api/modules/' + id + '/download'); }
+
+// 删除
+async function deleteItem(id, name) {
+    if (!confirm('确定删除 "' + name + '" 吗？')) return;
+    const res = await fetch(API + '/api/modules/' + id, { method: 'DELETE' });
+    const json = await res.json();
+    if (json.success) { toast('删除成功'); loadList(); }
+    else toast(json.message, 'error');
+}
+
+// 编辑弹窗
+function openEdit(id, type, version, changelog, name) {
+    document.getElementById('editId').value = id;
+    document.getElementById('editType').value = type;
+    document.getElementById('editVersion').value = version;
+    document.getElementById('editChangelog').value = changelog;
+    document.getElementById('editTitle').textContent = type === 'app' ? '编辑 App 版本' : '编辑分包';
+    const nameGroup = document.getElementById('editNameGroup');
+    const changelogGroup = document.getElementById('editChangelogGroup');
+    if (type === 'module') {
+        nameGroup.style.display = '';
+        document.getElementById('editName').value = name;
+        changelogGroup.style.display = 'none';
+    } else {
+        nameGroup.style.display = 'none';
+        changelogGroup.style.display = '';
+    }
+    document.getElementById('editModal').style.display = '';
+}
+
+async function submitEdit() {
+    const id = document.getElementById('editId').value;
+    const type = document.getElementById('editType').value;
+    const body = { version: document.getElementById('editVersion').value };
+    if (type === 'module') {
+        body.name = document.getElementById('editName').value;
+    } else {
+        body.changelog = document.getElementById('editChangelog').value;
+    }
+    const res = await fetch(API + '/api/modules/' + id, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+    });
+    const json = await res.json();
+    if (json.success) { toast('更新成功'); closeModal('editModal'); loadList(); }
+    else toast(json.message, 'error');
+}
+
+// 版本历史
+async function showHistory(id) {
+    const res = await fetch(API + '/api/modules/' + id + '/history');
+    const json = await res.json();
+    const list = (json.data && json.data.list) || [];
+    const el = document.getElementById('historyList');
+    if (list.length === 0) {
+        el.innerHTML = '<div class="empty">暂无历史版本</div>';
+    } else {
+        el.innerHTML = list.slice().reverse().map(h => `
+            <div class="history-item">
+                <div class="history-header">
+                    <span class="history-version">v${h.version}</span>
+                    <span class="history-time">${formatTime(h.createdAt)}</span>
+                </div>
+                <div class="history-file">${h.fileName}（${formatSize(h.fileSize)}）</div>
+                ${h.changelog ? '<div class="history-log">' + h.changelog + '</div>' : ''}
+            </div>
+        `).join('');
+    }
+    document.getElementById('historyModal').style.display = '';
+}
+
+function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+document.querySelectorAll('.modal-overlay').forEach(el => {
+    el.addEventListener('click', (e) => { if (e.target === el) el.style.display = 'none'; });
+});
+
+loadList();
+</script>
+</body>
+</html>

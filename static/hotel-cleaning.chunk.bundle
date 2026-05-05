@@ -1,0 +1,1082 @@
+(self["webpackChunkHotelRepack"] = self["webpackChunkHotelRepack"] || []).push([["hotel-cleaning"], {
+50581: (function (__unused_rspack_module, exports, __webpack_require__) {
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "default", ({
+    enumerable: true,
+    get: function() {
+        return _default;
+    }
+}));
+var _interop_require_default = __webpack_require__(95462);
+var _interop_require_wildcard = __webpack_require__(85465);
+var _jsxruntime = __webpack_require__(14056);
+var _react = /*#__PURE__*/ _interop_require_default._(__webpack_require__(73364));
+var _reactnative = __webpack_require__(25472);
+var _MaterialIcons = /*#__PURE__*/ _interop_require_default._(__webpack_require__(96346));
+var _reactnativereanimated = /*#__PURE__*/ _interop_require_wildcard._(__webpack_require__(58048));
+var COLORS = {
+    card: '#FFFFFF',
+    pending: '#F59E0B',
+    inProgress: '#3B82F6',
+    completed: '#059669',
+    text: '#1E293B',
+    textLight: '#64748b'
+};
+var StatCard = function(param) {
+    var icon = param.icon, label = param.label, value = param.value, color = param.color, index = param.index;
+    return /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnativereanimated.default.View, {
+        entering: _reactnativereanimated.FadeIn.delay(index * 80).springify(),
+        style: styles.card,
+        children: [
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.View, {
+                style: [
+                    styles.iconWrap,
+                    {
+                        backgroundColor: color + '15'
+                    }
+                ],
+                children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_MaterialIcons.default, {
+                    name: icon,
+                    size: 18,
+                    color: color
+                })
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                style: styles.value,
+                children: value
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                style: styles.label,
+                children: label
+            })
+        ]
+    });
+};
+var StatsBar = function(param) {
+    var total = param.total, pending = param.pending, inProgress = param.inProgress, completed = param.completed;
+    return /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+        style: styles.container,
+        children: [
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(StatCard, {
+                icon: "assignment",
+                label: "总任务",
+                value: total,
+                color: "#6366f1",
+                index: 0
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(StatCard, {
+                icon: "schedule",
+                label: "待打扫",
+                value: pending,
+                color: COLORS.pending,
+                index: 1
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(StatCard, {
+                icon: "cleaning-services",
+                label: "进行中",
+                value: inProgress,
+                color: COLORS.inProgress,
+                index: 2
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(StatCard, {
+                icon: "check-circle",
+                label: "已完成",
+                value: completed,
+                color: COLORS.completed,
+                index: 3
+            })
+        ]
+    });
+};
+var styles = _reactnative.StyleSheet.create({
+    container: {
+        flexDirection: 'row',
+        paddingHorizontal: 16,
+        paddingVertical: 4,
+        gap: 10
+    },
+    card: {
+        flex: 1,
+        backgroundColor: COLORS.card,
+        borderRadius: 14,
+        paddingVertical: 12,
+        alignItems: 'center'
+    },
+    iconWrap: {
+        width: 32,
+        height: 32,
+        borderRadius: 16,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 6
+    },
+    value: {
+        fontSize: 20,
+        fontWeight: '700',
+        color: COLORS.text
+    },
+    label: {
+        fontSize: 11,
+        color: COLORS.textLight,
+        marginTop: 2
+    }
+});
+var _default = StatsBar;
+
+
+}),
+22779: (function (__unused_rspack_module, exports, __webpack_require__) {
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "default", ({
+    enumerable: true,
+    get: function() {
+        return _default;
+    }
+}));
+var _interop_require_default = __webpack_require__(95462);
+var _jsxruntime = __webpack_require__(14056);
+var _react = /*#__PURE__*/ _interop_require_default._(__webpack_require__(73364));
+var _reactnative = __webpack_require__(25472);
+var COLORS = {
+    active: '#059669',
+    activeBg: '#ECFDF5',
+    inactive: '#64748b',
+    inactiveBg: '#F1F5F9'
+};
+var StatusTabs = function(param) {
+    var tabs = param.tabs, activeKey = param.activeKey, onSelect = param.onSelect, counts = param.counts;
+    return /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.View, {
+        style: styles.container,
+        children: tabs.map(function(tab) {
+            var isActive = tab.key === activeKey;
+            return /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.TouchableOpacity, {
+                style: [
+                    styles.tab,
+                    isActive && styles.tabActive
+                ],
+                onPress: function() {
+                    return onSelect(tab.key);
+                },
+                activeOpacity: 0.7,
+                children: [
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                        style: [
+                            styles.tabText,
+                            isActive && styles.tabTextActive
+                        ],
+                        children: tab.label
+                    }),
+                    counts[tab.key] > 0 && /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.View, {
+                        style: [
+                            styles.badge,
+                            isActive && styles.badgeActive
+                        ],
+                        children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                            style: [
+                                styles.badgeText,
+                                isActive && styles.badgeTextActive
+                            ],
+                            children: counts[tab.key]
+                        })
+                    })
+                ]
+            }, tab.key);
+        })
+    });
+};
+var styles = _reactnative.StyleSheet.create({
+    container: {
+        flexDirection: 'row',
+        paddingHorizontal: 16,
+        paddingVertical: 10,
+        gap: 8
+    },
+    tab: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 14,
+        paddingVertical: 7,
+        borderRadius: 20,
+        backgroundColor: COLORS.inactiveBg,
+        gap: 5
+    },
+    tabActive: {
+        backgroundColor: COLORS.activeBg
+    },
+    tabText: {
+        fontSize: 13,
+        fontWeight: '500',
+        color: COLORS.inactive
+    },
+    tabTextActive: {
+        color: COLORS.active,
+        fontWeight: '600'
+    },
+    badge: {
+        minWidth: 18,
+        height: 18,
+        borderRadius: 9,
+        backgroundColor: '#CBD5E1',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 5
+    },
+    badgeActive: {
+        backgroundColor: COLORS.active
+    },
+    badgeText: {
+        fontSize: 10,
+        fontWeight: '600',
+        color: '#64748b'
+    },
+    badgeTextActive: {
+        color: '#FFFFFF'
+    }
+});
+var _default = StatusTabs;
+
+
+}),
+75472: (function (__unused_rspack_module, exports, __webpack_require__) {
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "default", ({
+    enumerable: true,
+    get: function() {
+        return _default;
+    }
+}));
+var _extends = __webpack_require__(97180);
+var _interop_require_default = __webpack_require__(95462);
+var _interop_require_wildcard = __webpack_require__(85465);
+var _jsxruntime = __webpack_require__(14056);
+var _react = /*#__PURE__*/ _interop_require_wildcard._(__webpack_require__(73364));
+var _reactnative = __webpack_require__(25472);
+var _MaterialIcons = /*#__PURE__*/ _interop_require_default._(__webpack_require__(96346));
+var _reactnativereanimated = /*#__PURE__*/ _interop_require_wildcard._(__webpack_require__(58048));
+var STATUS_CONFIG = {
+    pending: {
+        label: '待打扫',
+        color: '#F59E0B',
+        bg: '#FFFBEB',
+        icon: 'schedule'
+    },
+    in_progress: {
+        label: '打扫中',
+        color: '#3B82F6',
+        bg: '#EFF6FF',
+        icon: 'cleaning-services'
+    },
+    completed: {
+        label: '已完成',
+        color: '#059669',
+        bg: '#ECFDF5',
+        icon: 'check-circle'
+    }
+};
+var PRIORITY_CONFIG = {
+    urgent: {
+        label: '紧急',
+        color: '#EF4444'
+    },
+    normal: {
+        label: '普通',
+        color: '#F59E0B'
+    },
+    low: {
+        label: '低优',
+        color: '#94A3B8'
+    }
+};
+var NEXT_STATUS = {
+    pending: 'in_progress',
+    in_progress: 'completed',
+    completed: null
+};
+var ACTION_LABEL = {
+    pending: '开始',
+    in_progress: '完成',
+    completed: '已结束'
+};
+var _worklet_16411587245423_init_data = {
+    code: "function TaskCardTsx1(){const{scale}=this.__closure;return{transform:[{scale:scale.value}]};}"
+};
+var TaskCard = function(param) {
+    var task = param.task, index = param.index, onStatusChange = param.onStatusChange;
+    var scale = (0, _reactnativereanimated.useSharedValue)(1);
+    var animatedBtnStyle = (0, _reactnativereanimated.useAnimatedStyle)(function TaskCardTsx1Factory(param) {
+        var _worklet_16411587245423_init_data = param._worklet_16411587245423_init_data, scale = param.scale;
+        var TaskCardTsx1 = function() {
+            return {
+                transform: [
+                    {
+                        scale: scale.value
+                    }
+                ]
+            };
+        };
+        TaskCardTsx1.__closure = {
+            scale: scale
+        };
+        TaskCardTsx1.__workletHash = 16411587245423;
+        TaskCardTsx1.__initData = _worklet_16411587245423_init_data;
+        return TaskCardTsx1;
+    }({
+        _worklet_16411587245423_init_data: _worklet_16411587245423_init_data,
+        scale: scale
+    }));
+    var statusConf = STATUS_CONFIG[task.status];
+    var priorityConf = PRIORITY_CONFIG[task.priority];
+    var nextStatus = NEXT_STATUS[task.status];
+    var onPressIn = (0, _react.useCallback)(function() {
+        scale.value = (0, _reactnativereanimated.withSpring)(0.94);
+    }, []);
+    var onPressOut = (0, _react.useCallback)(function() {
+        scale.value = (0, _reactnativereanimated.withSpring)(1);
+    }, []);
+    return /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnativereanimated.default.View, {
+        entering: _reactnativereanimated.FadeInDown.delay(index * 50).springify(),
+        children: /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+            style: styles.card,
+            children: [
+                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                    style: styles.topRow,
+                    children: [
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                            style: styles.roomInfo,
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.View, {
+                                    style: [
+                                        styles.floorBadge
+                                    ],
+                                    children: /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.Text, {
+                                        style: styles.floorText,
+                                        children: [
+                                            task.floor,
+                                            "F"
+                                        ]
+                                    })
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                                    style: styles.roomNumber,
+                                    children: task.roomNumber
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                                    style: styles.roomType,
+                                    children: task.roomType
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                            style: [
+                                styles.statusBadge,
+                                {
+                                    backgroundColor: statusConf.bg
+                                }
+                            ],
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_MaterialIcons.default, {
+                                    name: statusConf.icon,
+                                    size: 13,
+                                    color: statusConf.color
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                                    style: [
+                                        styles.statusText,
+                                        {
+                                            color: statusConf.color
+                                        }
+                                    ],
+                                    children: statusConf.label
+                                })
+                            ]
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                    style: styles.detailRow,
+                    children: [
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                            style: styles.detailItem,
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_MaterialIcons.default, {
+                                    name: "person-outline",
+                                    size: 14,
+                                    color: "#94A3B8"
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                                    style: styles.detailText,
+                                    children: task.assignee
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                            style: styles.detailItem,
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_MaterialIcons.default, {
+                                    name: "timer-outline",
+                                    size: 14,
+                                    color: "#94A3B8"
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.Text, {
+                                    style: styles.detailText,
+                                    children: [
+                                        "约",
+                                        task.estimatedMinutes,
+                                        "分钟"
+                                    ]
+                                })
+                            ]
+                        }),
+                        task.checkoutTime && /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                            style: styles.detailItem,
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_MaterialIcons.default, {
+                                    name: "login",
+                                    size: 14,
+                                    color: "#94A3B8"
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.Text, {
+                                    style: styles.detailText,
+                                    children: [
+                                        "退房 ",
+                                        task.checkoutTime
+                                    ]
+                                })
+                            ]
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                    style: styles.bottomRow,
+                    children: [
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                            style: styles.bottomLeft,
+                            children: [
+                                task.remark && /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                                    style: styles.remarkText,
+                                    numberOfLines: 1,
+                                    children: task.remark
+                                }),
+                                task.priority === 'urgent' && /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.View, {
+                                    style: [
+                                        styles.priorityTag,
+                                        {
+                                            backgroundColor: priorityConf.color + '15'
+                                        }
+                                    ],
+                                    children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                                        style: [
+                                            styles.priorityText,
+                                            {
+                                                color: priorityConf.color
+                                            }
+                                        ],
+                                        children: priorityConf.label
+                                    })
+                                })
+                            ]
+                        }),
+                        nextStatus && /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.TouchableOpacity, {
+                            onPressIn: onPressIn,
+                            onPressOut: onPressOut,
+                            onPress: function() {
+                                return onStatusChange(task.id, nextStatus);
+                            },
+                            activeOpacity: 0.8,
+                            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnativereanimated.default.View, {
+                                style: [
+                                    styles.actionBtn,
+                                    {
+                                        backgroundColor: statusConf.color
+                                    },
+                                    animatedBtnStyle
+                                ],
+                                children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                                    style: styles.actionText,
+                                    children: ACTION_LABEL[task.status]
+                                })
+                            })
+                        })
+                    ]
+                })
+            ]
+        })
+    });
+};
+var styles = _reactnative.StyleSheet.create({
+    card: _extends._({
+        backgroundColor: '#FFFFFF',
+        borderRadius: 16,
+        padding: 14
+    }, _reactnative.Platform.select({
+        ios: {
+            shadowColor: '#1E293B',
+            shadowOffset: {
+                width: 0,
+                height: 2
+            },
+            shadowOpacity: 0.05,
+            shadowRadius: 8
+        },
+        android: {
+            elevation: 2
+        }
+    })),
+    topRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    roomInfo: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8
+    },
+    floorBadge: {
+        width: 28,
+        height: 28,
+        borderRadius: 8,
+        backgroundColor: '#F1F5F9',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    floorText: {
+        fontSize: 11,
+        fontWeight: '600',
+        color: '#64748B'
+    },
+    roomNumber: {
+        fontSize: 17,
+        fontWeight: '700',
+        color: '#1E293B'
+    },
+    roomType: {
+        fontSize: 12,
+        color: '#94A3B8'
+    },
+    statusBadge: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 10,
+        paddingVertical: 4,
+        borderRadius: 12,
+        gap: 4
+    },
+    statusText: {
+        fontSize: 12,
+        fontWeight: '600'
+    },
+    detailRow: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: 14,
+        marginTop: 10,
+        paddingTop: 10,
+        borderTopWidth: 1,
+        borderTopColor: '#F1F5F9'
+    },
+    detailItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 4
+    },
+    detailText: {
+        fontSize: 12,
+        color: '#64748B'
+    },
+    bottomRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 10
+    },
+    bottomLeft: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8
+    },
+    remarkText: {
+        fontSize: 12,
+        color: '#94A3B8',
+        flex: 1
+    },
+    priorityTag: {
+        paddingHorizontal: 8,
+        paddingVertical: 2,
+        borderRadius: 6
+    },
+    priorityText: {
+        fontSize: 11,
+        fontWeight: '600'
+    },
+    actionBtn: {
+        paddingHorizontal: 20,
+        paddingVertical: 7,
+        borderRadius: 10
+    },
+    actionText: {
+        fontSize: 13,
+        fontWeight: '600',
+        color: '#FFFFFF'
+    }
+});
+var _default = TaskCard;
+
+
+}),
+75110: (function (__unused_rspack_module, exports, __webpack_require__) {
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "default", ({
+    enumerable: true,
+    get: function() {
+        return _default;
+    }
+}));
+var _extends = __webpack_require__(97180);
+var _interop_require_default = __webpack_require__(95462);
+var _interop_require_wildcard = __webpack_require__(85465);
+var _object_spread_props = __webpack_require__(5801);
+var _sliced_to_array = __webpack_require__(30703);
+var _jsxruntime = __webpack_require__(14056);
+var _react = /*#__PURE__*/ _interop_require_wildcard._(__webpack_require__(73364));
+var _reactnative = __webpack_require__(25472);
+var _reactnativesafeareacontext = __webpack_require__(85911);
+var _MaterialIcons = /*#__PURE__*/ _interop_require_default._(__webpack_require__(96346));
+var _Toast = /*#__PURE__*/ _interop_require_default._(__webpack_require__(81092));
+var _mockData = __webpack_require__(80018);
+var _StatusTabs = /*#__PURE__*/ _interop_require_default._(__webpack_require__(22779));
+var _StatsBar = /*#__PURE__*/ _interop_require_default._(__webpack_require__(50581));
+var _TaskCard = /*#__PURE__*/ _interop_require_default._(__webpack_require__(75472));
+var COLORS = {
+    primary: '#059669',
+    bg: '#F8FAFB',
+    card: '#FFFFFF',
+    text: '#1E293B',
+    textLight: '#64748b'
+};
+var HotelCleaning = function(param) {
+    var navigation = param.navigation;
+    var insets = (0, _reactnativesafeareacontext.useSafeAreaInsets)();
+    var toastRef = (0, _react.useRef)(null);
+    var _useState = _sliced_to_array._((0, _react.useState)('all'), 2), activeTab = _useState[0], setActiveTab = _useState[1];
+    var _useState1 = _sliced_to_array._((0, _react.useState)(_mockData.TASKS), 2), tasks = _useState1[0], setTasks = _useState1[1];
+    var stats = (0, _react.useMemo)(function() {
+        return {
+            total: tasks.length,
+            pending: tasks.filter(function(t) {
+                return t.status === 'pending';
+            }).length,
+            inProgress: tasks.filter(function(t) {
+                return t.status === 'in_progress';
+            }).length,
+            completed: tasks.filter(function(t) {
+                return t.status === 'completed';
+            }).length
+        };
+    }, [
+        tasks
+    ]);
+    var counts = (0, _react.useMemo)(function() {
+        return {
+            all: tasks.length,
+            pending: stats.pending,
+            in_progress: stats.inProgress,
+            completed: stats.completed
+        };
+    }, [
+        tasks,
+        stats
+    ]);
+    var filteredTasks = (0, _react.useMemo)(function() {
+        if (activeTab === 'all') return tasks;
+        return tasks.filter(function(t) {
+            return t.status === activeTab;
+        });
+    }, [
+        tasks,
+        activeTab
+    ]);
+    var handleStatusChange = (0, _react.useCallback)(function(taskId, newStatus) {
+        var _toastRef_current;
+        setTasks(function(prev) {
+            return prev.map(function(t) {
+                return t.id === taskId ? _object_spread_props._(_extends._({}, t), {
+                    status: newStatus,
+                    completedAt: newStatus === 'completed' ? new Date().toLocaleTimeString('zh-CN', {
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    }) : null
+                }) : t;
+            });
+        });
+        var task = tasks.find(function(t) {
+            return t.id === taskId;
+        });
+        var statusLabel = {
+            pending: '待打扫',
+            in_progress: '打扫中',
+            completed: '已完成'
+        }[newStatus];
+        (_toastRef_current = toastRef.current) == null ? void 0 : _toastRef_current.show({
+            type: 'success',
+            message: `${task == null ? void 0 : task.roomNumber} 房间已更新为「${statusLabel}」`,
+            duration: 2000
+        });
+    }, [
+        tasks
+    ]);
+    var renderItem = (0, _react.useCallback)(function(param) {
+        var item = param.item, index = param.index;
+        return /*#__PURE__*/ (0, _jsxruntime.jsx)(_TaskCard.default, {
+            task: item,
+            index: index,
+            onStatusChange: handleStatusChange
+        });
+    }, [
+        handleStatusChange
+    ]);
+    return /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+        style: styles.container,
+        children: [
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.StatusBar, {
+                barStyle: "dark-content"
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.View, {
+                style: [
+                    styles.header,
+                    {
+                        paddingTop: insets.top + 12
+                    }
+                ],
+                children: /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                    style: styles.headerRow,
+                    children: [
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.TouchableOpacity, {
+                            onPress: function() {
+                                return navigation.goBack();
+                            },
+                            style: styles.backBtn,
+                            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_MaterialIcons.default, {
+                                name: "arrow-back-ios",
+                                size: 20,
+                                color: COLORS.text
+                            })
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                            style: styles.headerTitle,
+                            children: "客房打扫"
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.TouchableOpacity, {
+                            style: styles.refreshBtn,
+                            onPress: function() {
+                                return setTasks(_mockData.TASKS);
+                            },
+                            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_MaterialIcons.default, {
+                                name: "refresh",
+                                size: 22,
+                                color: COLORS.primary
+                            })
+                        })
+                    ]
+                })
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_StatsBar.default, _extends._({}, stats)),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_StatusTabs.default, {
+                tabs: _mockData.STATUS_TABS,
+                activeKey: activeTab,
+                onSelect: setActiveTab,
+                counts: counts
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.FlatList, {
+                data: filteredTasks,
+                keyExtractor: function(item) {
+                    return item.id;
+                },
+                renderItem: renderItem,
+                showsVerticalScrollIndicator: false,
+                contentContainerStyle: styles.listContent,
+                ItemSeparatorComponent: function() {
+                    return /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.View, {
+                        style: styles.separator
+                    });
+                }
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_Toast.default, {
+                ref: toastRef
+            })
+        ]
+    });
+};
+var styles = _reactnative.StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: COLORS.bg
+    },
+    header: _extends._({
+        backgroundColor: COLORS.card,
+        paddingBottom: 12
+    }, _reactnative.Platform.select({
+        ios: {
+            shadowColor: '#1E293B',
+            shadowOffset: {
+                width: 0,
+                height: 1
+            },
+            shadowOpacity: 0.04,
+            shadowRadius: 4
+        },
+        android: {
+            elevation: 2
+        }
+    })),
+    headerRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: 16
+    },
+    backBtn: {
+        padding: 8,
+        marginLeft: -4
+    },
+    headerTitle: {
+        fontSize: 18,
+        fontWeight: '700',
+        color: COLORS.text
+    },
+    refreshBtn: {
+        padding: 8
+    },
+    listContent: {
+        paddingHorizontal: 16,
+        paddingTop: 4,
+        paddingBottom: 40
+    },
+    separator: {
+        height: 10
+    }
+});
+var _default = HotelCleaning;
+
+
+}),
+80018: (function (__unused_rspack_module, exports) {
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: Object.getOwnPropertyDescriptor(all, name).get
+    });
+}
+_export(exports, {
+    get STATUS_TABS () {
+        return STATUS_TABS;
+    },
+    get TASKS () {
+        return TASKS;
+    }
+});
+var STATUS_TABS = [
+    {
+        key: 'all',
+        label: '全部'
+    },
+    {
+        key: 'pending',
+        label: '待打扫'
+    },
+    {
+        key: 'in_progress',
+        label: '打扫中'
+    },
+    {
+        key: 'completed',
+        label: '已完成'
+    }
+];
+var TASKS = [
+    {
+        id: 't1',
+        roomNumber: '501',
+        floor: 5,
+        roomType: '标准双床间',
+        status: 'pending',
+        priority: 'urgent',
+        assignee: '张阿姨',
+        estimatedMinutes: 40,
+        checkoutTime: '10:30',
+        remark: '客人提前退房，需尽快打扫',
+        createdAt: '10:35',
+        completedAt: null
+    },
+    {
+        id: 't2',
+        roomNumber: '808',
+        floor: 8,
+        roomType: '豪华大床房',
+        status: 'in_progress',
+        priority: 'normal',
+        assignee: '李姐',
+        estimatedMinutes: 50,
+        checkoutTime: '09:00',
+        remark: null,
+        createdAt: '09:10',
+        completedAt: null
+    },
+    {
+        id: 't3',
+        roomNumber: '1206',
+        floor: 12,
+        roomType: '行政套房',
+        status: 'pending',
+        priority: 'normal',
+        assignee: '王姐',
+        estimatedMinutes: 60,
+        checkoutTime: '11:00',
+        remark: null,
+        createdAt: '11:05',
+        completedAt: null
+    },
+    {
+        id: 't4',
+        roomNumber: '302',
+        floor: 3,
+        roomType: '标准大床间',
+        status: 'completed',
+        priority: 'low',
+        assignee: '张阿姨',
+        estimatedMinutes: 35,
+        checkoutTime: '08:00',
+        remark: null,
+        createdAt: '08:05',
+        completedAt: '08:38'
+    },
+    {
+        id: 't5',
+        roomNumber: '1605',
+        floor: 16,
+        roomType: '海景大床房',
+        status: 'pending',
+        priority: 'urgent',
+        assignee: '赵姐',
+        estimatedMinutes: 45,
+        checkoutTime: '10:00',
+        remark: 'VIP客人下午入住',
+        createdAt: '10:10',
+        completedAt: null
+    },
+    {
+        id: 't6',
+        roomNumber: '712',
+        floor: 7,
+        roomType: '园景大床房',
+        status: 'in_progress',
+        priority: 'normal',
+        assignee: '刘姐',
+        estimatedMinutes: 40,
+        checkoutTime: '09:30',
+        remark: null,
+        createdAt: '09:40',
+        completedAt: null
+    },
+    {
+        id: 't7',
+        roomNumber: '2103',
+        floor: 21,
+        roomType: '总统套房',
+        status: 'pending',
+        priority: 'urgent',
+        assignee: '王姐',
+        estimatedMinutes: 90,
+        checkoutTime: '12:00',
+        remark: '需深度清洁+鲜花布置',
+        createdAt: '12:05',
+        completedAt: null
+    },
+    {
+        id: 't8',
+        roomNumber: '415',
+        floor: 4,
+        roomType: '标准双床间',
+        status: 'completed',
+        priority: 'normal',
+        assignee: '李姐',
+        estimatedMinutes: 40,
+        checkoutTime: '07:30',
+        remark: null,
+        createdAt: '07:35',
+        completedAt: '08:10'
+    },
+    {
+        id: 't9',
+        roomNumber: '910',
+        floor: 9,
+        roomType: '商务套房',
+        status: 'completed',
+        priority: 'low',
+        assignee: '赵姐',
+        estimatedMinutes: 55,
+        checkoutTime: '08:30',
+        remark: null,
+        createdAt: '08:35',
+        completedAt: '09:25'
+    },
+    {
+        id: 't10',
+        roomNumber: '620',
+        floor: 6,
+        roomType: '亲子主题房',
+        status: 'pending',
+        priority: 'normal',
+        assignee: '刘姐',
+        estimatedMinutes: 50,
+        checkoutTime: '11:30',
+        remark: '需补充儿童用品',
+        createdAt: '11:35',
+        completedAt: null
+    },
+    {
+        id: 't11',
+        roomNumber: '1802',
+        floor: 18,
+        roomType: '豪华全景房',
+        status: 'in_progress',
+        priority: 'normal',
+        assignee: '张阿姨',
+        estimatedMinutes: 45,
+        checkoutTime: '10:00',
+        remark: null,
+        createdAt: '10:15',
+        completedAt: null
+    },
+    {
+        id: 't12',
+        roomNumber: '1005',
+        floor: 10,
+        roomType: '家庭联通房',
+        status: 'pending',
+        priority: 'low',
+        assignee: '李姐',
+        estimatedMinutes: 55,
+        checkoutTime: '13:00',
+        remark: null,
+        createdAt: '13:05',
+        completedAt: null
+    }
+];
+
+
+}),
+
+}]);//# sourceMappingURL=hotel-cleaning.chunk.bundle.map?platform=android

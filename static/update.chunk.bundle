@@ -1,0 +1,208 @@
+(self["webpackChunkHotelRepack"] = self["webpackChunkHotelRepack"] || []).push([["update"], {
+57972: (function (__unused_rspack_module, exports, __webpack_require__) {
+/**
+ * 共用组件 - BackButton
+ * 用于演示共用组件在分包中的行为
+ * 
+ * 这个组件会被 feature, settings, profile, shop 分包共同使用
+ * Rspack 会自动将其提取到主包中，避免重复打包
+ */ Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: Object.getOwnPropertyDescriptor(all, name).get
+    });
+}
+_export(exports, {
+    get Badge () {
+        return Badge;
+    },
+    get default () {
+        return BackButton;
+    }
+});
+var _interop_require_default = __webpack_require__(95462);
+var _jsxruntime = __webpack_require__(14056);
+var _react = /*#__PURE__*/ _interop_require_default._(__webpack_require__(73364));
+var _reactnative = __webpack_require__(25472);
+function BackButton(param) {
+    var onPress = param.onPress, _param_label = param.label, label = _param_label === void 0 ? '返回首页' : _param_label, _param_color = param.color, color = _param_color === void 0 ? '#666' : _param_color;
+    return /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.TouchableOpacity, {
+        style: [
+            styles.button,
+            {
+                backgroundColor: color
+            }
+        ],
+        onPress: onPress,
+        children: [
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                style: styles.arrow,
+                children: "←"
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                style: styles.label,
+                children: label
+            })
+        ]
+    });
+}
+function Badge(param) {
+    var text = param.text, _param_color = param.color, color = _param_color === void 0 ? '#FF5722' : _param_color;
+    return /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.View, {
+        style: [
+            styles.badge,
+            {
+                backgroundColor: color
+            }
+        ],
+        children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+            style: styles.badgeText,
+            children: text
+        })
+    });
+}
+var styles = _reactnative.StyleSheet.create({
+    button: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 24,
+        borderRadius: 8,
+        alignSelf: 'center'
+    },
+    arrow: {
+        color: '#fff',
+        fontSize: 18,
+        marginRight: 8
+    },
+    label: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold'
+    },
+    badge: {
+        paddingHorizontal: 12,
+        paddingVertical: 4,
+        borderRadius: 12,
+        marginLeft: 8
+    },
+    badgeText: {
+        color: '#fff',
+        fontSize: 12,
+        fontWeight: 'bold'
+    }
+});
+
+
+}),
+67053: (function (__unused_rspack_module, exports, __webpack_require__) {
+/**
+ * 分包页面 - UpdateTestScreen
+ * 用于测试分包更新功能
+ */ Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "default", ({
+    enumerable: true,
+    get: function() {
+        return UpdateTestScreen;
+    }
+}));
+var _interop_require_default = __webpack_require__(95462);
+var _interop_require_wildcard = __webpack_require__(85465);
+var _jsxruntime = __webpack_require__(14056);
+var _react = /*#__PURE__*/ _interop_require_default._(__webpack_require__(73364));
+var _reactnative = __webpack_require__(25472);
+var _BackButton = /*#__PURE__*/ _interop_require_wildcard._(__webpack_require__(57972));
+function UpdateTestScreen(param) {
+    var navigation = param.navigation;
+    return /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+        style: styles.container,
+        children: [
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.StatusBar, {
+                barStyle: "dark-content",
+                backgroundColor: "#EDE7F6"
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                style: styles.header,
+                children: [
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                        style: styles.title,
+                        children: "\uD83D\uDD04 更新测试"
+                    }),
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)(_BackButton.Badge, {
+                        text: "update",
+                        color: "#673AB7"
+                    })
+                ]
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                style: styles.description,
+                children: "这是 Update 分包"
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                style: styles.version,
+                children: "当前版本: 1.0.0"
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.Text, {
+                style: styles.info,
+                children: [
+                    "修改此页面内容并重新部署分包，",
+                    '\n',
+                    "可测试热更新功能"
+                ]
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_BackButton.default, {
+                onPress: function() {
+                    return navigation.goBack();
+                },
+                color: "#673AB7"
+            })
+        ]
+    });
+}
+var styles = _reactnative.StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#EDE7F6',
+        padding: 20
+    },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 16
+    },
+    title: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: '#4527A0'
+    },
+    description: {
+        fontSize: 16,
+        color: '#666',
+        marginBottom: 12
+    },
+    version: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#673AB7',
+        marginBottom: 16
+    },
+    info: {
+        fontSize: 14,
+        color: '#999',
+        marginBottom: 24,
+        textAlign: 'center',
+        lineHeight: 22
+    }
+});
+
+
+}),
+
+}]);//# sourceMappingURL=update.chunk.bundle.map?platform=android

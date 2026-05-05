@@ -1,0 +1,376 @@
+(self["webpackChunkHotelRepack"] = self["webpackChunkHotelRepack"] || []).push([["shop"], {
+57972: (function (__unused_rspack_module, exports, __webpack_require__) {
+/**
+ * 共用组件 - BackButton
+ * 用于演示共用组件在分包中的行为
+ * 
+ * 这个组件会被 feature, settings, profile, shop 分包共同使用
+ * Rspack 会自动将其提取到主包中，避免重复打包
+ */ Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: Object.getOwnPropertyDescriptor(all, name).get
+    });
+}
+_export(exports, {
+    get Badge () {
+        return Badge;
+    },
+    get default () {
+        return BackButton;
+    }
+});
+var _interop_require_default = __webpack_require__(95462);
+var _jsxruntime = __webpack_require__(14056);
+var _react = /*#__PURE__*/ _interop_require_default._(__webpack_require__(73364));
+var _reactnative = __webpack_require__(25472);
+function BackButton(param) {
+    var onPress = param.onPress, _param_label = param.label, label = _param_label === void 0 ? '返回首页' : _param_label, _param_color = param.color, color = _param_color === void 0 ? '#666' : _param_color;
+    return /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.TouchableOpacity, {
+        style: [
+            styles.button,
+            {
+                backgroundColor: color
+            }
+        ],
+        onPress: onPress,
+        children: [
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                style: styles.arrow,
+                children: "←"
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                style: styles.label,
+                children: label
+            })
+        ]
+    });
+}
+function Badge(param) {
+    var text = param.text, _param_color = param.color, color = _param_color === void 0 ? '#FF5722' : _param_color;
+    return /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.View, {
+        style: [
+            styles.badge,
+            {
+                backgroundColor: color
+            }
+        ],
+        children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+            style: styles.badgeText,
+            children: text
+        })
+    });
+}
+var styles = _reactnative.StyleSheet.create({
+    button: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 24,
+        borderRadius: 8,
+        alignSelf: 'center'
+    },
+    arrow: {
+        color: '#fff',
+        fontSize: 18,
+        marginRight: 8
+    },
+    label: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold'
+    },
+    badge: {
+        paddingHorizontal: 12,
+        paddingVertical: 4,
+        borderRadius: 12,
+        marginLeft: 8
+    },
+    badgeText: {
+        color: '#fff',
+        fontSize: 12,
+        fontWeight: 'bold'
+    }
+});
+
+
+}),
+93702: (function (__unused_rspack_module, exports, __webpack_require__) {
+/**
+ * 分包页面 - ShopScreen
+ * 使用 Zustand 购物车功能（与主包共享）
+ */ Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "default", ({
+    enumerable: true,
+    get: function() {
+        return ShopScreen;
+    }
+}));
+var _interop_require_default = __webpack_require__(95462);
+var _interop_require_wildcard = __webpack_require__(85465);
+var _jsxruntime = __webpack_require__(14056);
+var _react = /*#__PURE__*/ _interop_require_default._(__webpack_require__(73364));
+var _reactnative = __webpack_require__(25472);
+var _BackButton = /*#__PURE__*/ _interop_require_wildcard._(__webpack_require__(57972));
+var _useAppStore = __webpack_require__(4379);
+var products = [
+    {
+        id: 1,
+        name: 'React Native 入门',
+        price: 99,
+        emoji: '📘'
+    },
+    {
+        id: 2,
+        name: 'Re.Pack 进阶',
+        price: 199,
+        emoji: '📦'
+    },
+    {
+        id: 3,
+        name: '分包实战课程',
+        price: 299,
+        emoji: '🎓'
+    },
+    {
+        id: 4,
+        name: 'Module Federation',
+        price: 399,
+        emoji: '🔗'
+    },
+    {
+        id: 5,
+        name: 'TypeScript 实战',
+        price: 149,
+        emoji: '📒'
+    },
+    {
+        id: 6,
+        name: '状态管理精通',
+        price: 249,
+        emoji: '🗂️'
+    }
+];
+function ShopScreen(param) {
+    var navigation = param.navigation;
+    // 使用 Zustand 购物车状态
+    var _useAppStore1 = (0, _useAppStore.useAppStore)(), cartCount = _useAppStore1.cartCount, addToCart = _useAppStore1.addToCart, clearCart = _useAppStore1.clearCart;
+    return /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+        style: styles.container,
+        children: [
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.StatusBar, {
+                barStyle: "dark-content",
+                backgroundColor: "#FFF3E0"
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                style: styles.header,
+                children: [
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                        style: styles.title,
+                        children: "\uD83D\uDED2 商城页面"
+                    }),
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)(_BackButton.Badge, {
+                        text: "shop",
+                        color: "#FF9800"
+                    })
+                ]
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                style: styles.cartInfo,
+                children: [
+                    /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.Text, {
+                        style: styles.cartText,
+                        children: [
+                            "购物车: ",
+                            cartCount,
+                            " 件"
+                        ]
+                    }),
+                    cartCount > 0 && /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.TouchableOpacity, {
+                        onPress: clearCart,
+                        style: styles.clearButton,
+                        children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                            style: styles.clearButtonText,
+                            children: "清空"
+                        })
+                    })
+                ]
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                style: styles.promoBanner,
+                children: [
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                        style: styles.promoEmoji,
+                        children: "\uD83C\uDF89"
+                    }),
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                        style: styles.promoText,
+                        children: "限时优惠！满2件减30元"
+                    })
+                ]
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                style: styles.subtitle,
+                children: '点击"购买"添加到购物车，返回首页查看数量'
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.ScrollView, {
+                style: styles.productList,
+                showsVerticalScrollIndicator: false,
+                children: products.map(function(product) {
+                    return /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                        style: styles.productCard,
+                        children: [
+                            /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                                style: styles.productEmoji,
+                                children: product.emoji
+                            }),
+                            /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.View, {
+                                style: styles.productInfo,
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                                        style: styles.productName,
+                                        children: product.name
+                                    }),
+                                    /*#__PURE__*/ (0, _jsxruntime.jsxs)(_reactnative.Text, {
+                                        style: styles.productPrice,
+                                        children: [
+                                            "\xa5",
+                                            product.price
+                                        ]
+                                    })
+                                ]
+                            }),
+                            /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.TouchableOpacity, {
+                                style: styles.buyButton,
+                                onPress: addToCart,
+                                children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_reactnative.Text, {
+                                    style: styles.buyButtonText,
+                                    children: "购买"
+                                })
+                            })
+                        ]
+                    }, product.id);
+                })
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_BackButton.default, {
+                onPress: function() {
+                    return navigation.goBack();
+                },
+                color: "#FF9800"
+            })
+        ]
+    });
+}
+var styles = _reactnative.StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#FFF3E0',
+        padding: 20,
+        paddingTop: 60
+    },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 8
+    },
+    title: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: '#E65100'
+    },
+    subtitle: {
+        fontSize: 14,
+        color: '#666',
+        marginBottom: 24,
+        textAlign: 'center'
+    },
+    productList: {
+        flex: 1
+    },
+    productCard: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        borderRadius: 12,
+        padding: 16,
+        marginBottom: 12
+    },
+    productEmoji: {
+        fontSize: 36,
+        marginRight: 16
+    },
+    productInfo: {
+        flex: 1
+    },
+    productName: {
+        fontSize: 16,
+        fontWeight: '500',
+        color: '#333',
+        marginBottom: 4
+    },
+    productPrice: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#E65100'
+    },
+    buyButton: {
+        backgroundColor: '#FF9800',
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        borderRadius: 6
+    },
+    buyButtonText: {
+        color: '#fff',
+        fontWeight: 'bold'
+    },
+    cartInfo: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 8
+    },
+    cartText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#E65100'
+    },
+    promoBanner: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#FFE0B2',
+        borderRadius: 8,
+        padding: 12,
+        marginBottom: 16
+    },
+    promoEmoji: {
+        fontSize: 20,
+        marginRight: 8
+    },
+    promoText: {
+        fontSize: 14,
+        fontWeight: '600',
+        color: '#E65100'
+    },
+    clearButton: {
+        marginLeft: 12,
+        backgroundColor: '#f44336',
+        paddingVertical: 4,
+        paddingHorizontal: 12,
+        borderRadius: 4
+    },
+    clearButtonText: {
+        color: '#fff',
+        fontSize: 12
+    }
+});
+
+
+}),
+
+}]);//# sourceMappingURL=shop.chunk.bundle.map?platform=android

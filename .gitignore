@@ -1,0 +1,8 @@
+# IDE
+.vscode/
+
+# 上传文件（运行时生成）
+uploads/
+
+# 编译产物
+*.exe
