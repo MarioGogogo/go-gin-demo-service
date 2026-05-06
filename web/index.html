@@ -27,6 +27,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#4f6ef7;box-shadow:0 0 0 2px rgba(79,110,247,0.1)}
 .form-group textarea{min-height:60px;resize:vertical}
 
+.file-upload{position:relative;display:inline-block;width:100%}
+.file-upload-input{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.file-upload-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:10px 16px;background:#f0f9ff;color:#1890ff;border:1.5px dashed #91d5ff;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s}
+.file-upload-btn:hover{background:#e6f7ff;border-color:#69c0ff;color:#096dd9}
+.file-upload-btn svg{width:18px;height:18px}
+.file-name{margin-top:8px;font-size:13px;color:#52c41a;padding:6px 10px;background:#f6ffed;border-radius:6px;display:none}
+.file-name.show{display:block}
+
 .btn{padding:9px 22px;border:none;border-radius:7px;font-size:14px;cursor:pointer;transition:all .15s;font-weight:500}
 .btn:hover{opacity:.85;transform:translateY(-1px)}
 .btn-primary{background:#4f6ef7;color:#fff}
@@ -90,7 +98,14 @@ tr:hover td{background:#fafbff}
                     </div>
                     <div class="form-group">
                         <label>选择文件</label>
-                        <input type="file" id="appFile" required>
+                        <div class="file-upload">
+                            <input type="file" id="appFile" class="file-upload-input" required>
+                            <div class="file-upload-btn" id="appFileBtn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                点击选择文件
+                            </div>
+                            <div class="file-name" id="appFileName"></div>
+                        </div>
                     </div>
                     <div class="form-group full">
                         <label>更新内容</label>
@@ -127,8 +142,23 @@ tr:hover td{background:#fafbff}
                         <input type="text" id="moduleVersion" placeholder="如 1.0.0" required>
                     </div>
                     <div class="form-group">
+                        <label>模块编码</label>
+                        <input type="text" id="moduleCode" placeholder="如 shop（对应 static 目录文件名）" required>
+                    </div>
+                    <div class="form-group">
+                        <label>下载地址</label>
+                        <input type="text" id="moduleDownloadUrl" placeholder="如 http://xxx/download/shop.chunk.bundle">
+                    </div>
+                    <div class="form-group full">
                         <label>选择文件</label>
-                        <input type="file" id="moduleFile" required>
+                        <div class="file-upload">
+                            <input type="file" id="moduleFile" class="file-upload-input" required>
+                            <div class="file-upload-btn" id="moduleFileBtn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                点击选择文件
+                            </div>
+                            <div class="file-name" id="moduleFileName"></div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">上传</button>
@@ -295,6 +325,8 @@ document.getElementById('moduleForm').addEventListener('submit', async (e) => {
     form.append('type', 'hotel-module');
     form.append('name', document.getElementById('moduleName').value);
     form.append('version', document.getElementById('moduleVersion').value);
+    form.append('code', document.getElementById('moduleCode').value);
+    form.append('downloadUrl', document.getElementById('moduleDownloadUrl').value);
     const res = await fetch(API + '/api/modules/upload', { method: 'POST', body: form });
     const json = await res.json();
     if (json.success) { toast('上传成功'); e.target.reset(); loadList(); }
@@ -382,6 +414,18 @@ document.querySelectorAll('.modal-overlay').forEach(el => {
 });
 
 loadList();
+
+// 文件选择后显示文件名
+document.getElementById('appFile').addEventListener('change', function() {
+    const el = document.getElementById('appFileName');
+    if (this.files.length) { el.textContent = this.files[0].name; el.classList.add('show'); }
+    else { el.classList.remove('show'); }
+});
+document.getElementById('moduleFile').addEventListener('change', function() {
+    const el = document.getElementById('moduleFileName');
+    if (this.files.length) { el.textContent = this.files[0].name; el.classList.add('show'); }
+    else { el.classList.remove('show'); }
+});
 </script>
 </body>
 </html>

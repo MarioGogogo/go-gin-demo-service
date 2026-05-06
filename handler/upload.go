@@ -90,6 +90,8 @@ func UploadModule(c *gin.Context) {
 	moduleType := c.PostForm("type")
 	version := c.PostForm("version")
 	changelog := c.PostForm("changelog")
+	code := c.PostForm("code")
+	downloadUrl := c.PostForm("downloadUrl")
 
 	if moduleType == "" || version == "" {
 		c.JSON(http.StatusOK, model.Fail(model.CodeBadRequest, "类型和版本号不能为空"))
@@ -144,8 +146,8 @@ func UploadModule(c *gin.Context) {
 		if err == nil {
 			database.DB.Exec("INSERT INTO version_histories (module_id, version, file_name, file_size, changelog, created_at) VALUES ($1, $2, $3, $4, $5, $6)",
 				existID, version, file.Filename, file.Size, changelog, now)
-			database.DB.Exec("UPDATE modules SET version=$1, file_name=$2, file_path=$3, file_size=$4, changelog=$5, updated_at=$6 WHERE id=$7",
-				version, file.Filename, savePath, file.Size, changelog, now, existID)
+			database.DB.Exec("UPDATE modules SET version=$1, file_name=$2, file_path=$3, file_size=$4, changelog=$5, code=$6, download_url=$7, updated_at=$8 WHERE id=$9",
+				version, file.Filename, savePath, file.Size, changelog, code, downloadUrl, now, existID)
 			if existPath != "" {
 				os.Remove(existPath)
 			}
@@ -156,8 +158,8 @@ func UploadModule(c *gin.Context) {
 	}
 
 	// 新记录
-	_, err = database.DB.Exec("INSERT INTO modules (id, name, type, version, file_name, file_path, file_size, changelog, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
-		id, name, moduleType, version, file.Filename, savePath, file.Size, changelog, now, now)
+		_, err = database.DB.Exec("INSERT INTO modules (id, name, type, version, file_name, file_path, file_size, changelog, code, download_url, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)",
+			id, name, moduleType, version, file.Filename, savePath, file.Size, changelog, code, downloadUrl, now, now)
 	if err != nil {
 		os.Remove(savePath)
 		c.JSON(http.StatusOK, model.Fail(model.CodeServerError, "保存失败"))
