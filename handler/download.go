@@ -14,7 +14,7 @@ import (
 // 资源目录路径
 const staticDir = "./static"
 
-// Download 下载资源
+// Download 下载资源，依次在 static、uploads/modules、uploads/app 中查找
 func Download(c *gin.Context) {
 	filename := c.Param("filename")
 
@@ -24,15 +24,17 @@ func Download(c *gin.Context) {
 		return
 	}
 
-	filePath := filepath.Join(staticDir, filename)
-
-	info, err := os.Stat(filePath)
-	if err != nil || info.IsDir() {
-		c.JSON(http.StatusOK, model.Fail(model.CodeNotFound, "文件不存在"))
-		return
+	dirs := []string{"./static", "./uploads/modules", "./uploads/app"}
+	for _, dir := range dirs {
+		filePath := filepath.Join(dir, filename)
+		info, err := os.Stat(filePath)
+		if err == nil && !info.IsDir() {
+			c.FileAttachment(filePath, filename)
+			return
+		}
 	}
 
-	c.FileAttachment(filePath, filename)
+	c.JSON(http.StatusOK, model.Fail(model.CodeNotFound, "文件不存在"))
 }
 
 // ListFiles 列出可下载的资源

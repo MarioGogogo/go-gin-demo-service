@@ -145,10 +145,6 @@ tr:hover td{background:#fafbff}
                         <label>模块编码</label>
                         <input type="text" id="moduleCode" placeholder="如 shop（对应 static 目录文件名）" required>
                     </div>
-                    <div class="form-group">
-                        <label>下载地址</label>
-                        <input type="text" id="moduleDownloadUrl" placeholder="如 http://xxx/download/shop.chunk.bundle">
-                    </div>
                     <div class="form-group full">
                         <label>选择文件</label>
                         <div class="file-upload">
@@ -242,42 +238,36 @@ function switchTab(tab) {
 }
 
 async function loadList() {
-    const res = await fetch(API + '/api/modules');
-    const json = await res.json();
-    const list = json.data.list || [];
+    // 加载App列表
+    const appRes = await fetch(API + '/api/app');
+    const appJson = await appRes.json();
+    const appList = (appJson.data && appJson.data.list) || [];
 
-    const apps = list.filter(m => m.type === 'app');
-    const modules = list.filter(m => m.type === 'hotel-module');
-
-    // App列表：展开所有版本历史
     const appTbody = document.getElementById('appList');
     const appEmpty = document.getElementById('appEmpty');
-    if (apps.length === 0) {
+    if (appList.length === 0) {
         appTbody.innerHTML = '';
         appEmpty.style.display = '';
     } else {
         appEmpty.style.display = 'none';
-        let rows = '';
-        apps.forEach(app => {
-            if (app.history && app.history.length > 0) {
-                app.history.slice().reverse().forEach((h, idx) => {
-                    rows += `<tr>
-                        <td><strong>v${h.version}</strong></td>
-                        <td>${h.fileName}</td>
-                        <td>${formatSize(h.fileSize)}</td>
-                        <td>${h.changelog || '-'}</td>
-                        <td>${formatTime(h.createdAt)}</td>
-                        <td class="actions">
-                            <button class="btn btn-info btn-sm" onclick="downloadItem('${app.id}')">下载</button>
-                            <button class="btn btn-warning btn-sm" onclick="openEdit('${app.id}','app','${h.version}','${(h.changelog||'').replace(/'/g,"\\'")}','')">编辑</button>
-                            <button class="btn btn-danger btn-sm" onclick="deleteItem('${app.id}','App v${h.version}')">删除</button>
-                        </td>
-                    </tr>`;
-                });
-            }
-        });
-        appTbody.innerHTML = rows;
+        appTbody.innerHTML = appList.map(a => `<tr>
+            <td><strong>v${a.versionName}</strong></td>
+            <td>app.apk</td>
+            <td>${formatSize(a.fileSize)}</td>
+            <td>${a.changelog || '-'}</td>
+            <td>${a.versionName}</td>
+            <td class="actions">
+                <button class="btn btn-info btn-sm" onclick="window.open(API + '/download/app.apk')">下载</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteApp(${a.id},'v${a.versionName}')">删除</button>
+            </td>
+        </tr>`).join('');
     }
+
+    // 加载分包列表
+    const res = await fetch(API + '/api/modules');
+    const json = await res.json();
+    const list = json.data.list || [];
+    const modules = list.filter(m => m.type === 'hotel-module');
 
     // 分包列表
     const modTbody = document.getElementById('moduleList');
@@ -308,10 +298,9 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = new FormData();
     form.append('file', document.getElementById('appFile').files[0]);
-    form.append('type', 'app');
     form.append('version', document.getElementById('appVersion').value);
     form.append('changelog', document.getElementById('appChangelog').value);
-    const res = await fetch(API + '/api/modules/upload', { method: 'POST', body: form });
+    const res = await fetch(API + '/api/app/upload', { method: 'POST', body: form });
     const json = await res.json();
     if (json.success) { toast('上传成功'); e.target.reset(); loadList(); }
     else toast(json.message, 'error');
@@ -326,7 +315,6 @@ document.getElementById('moduleForm').addEventListener('submit', async (e) => {
     form.append('name', document.getElementById('moduleName').value);
     form.append('version', document.getElementById('moduleVersion').value);
     form.append('code', document.getElementById('moduleCode').value);
-    form.append('downloadUrl', document.getElementById('moduleDownloadUrl').value);
     const res = await fetch(API + '/api/modules/upload', { method: 'POST', body: form });
     const json = await res.json();
     if (json.success) { toast('上传成功'); e.target.reset(); loadList(); }
@@ -336,7 +324,16 @@ document.getElementById('moduleForm').addEventListener('submit', async (e) => {
 // 下载
 function downloadItem(id) { window.open(API + '/api/modules/' + id + '/download'); }
 
-// 删除
+// 删除App
+async function deleteApp(id, name) {
+    if (!confirm('确定删除 "' + name + '" 吗？')) return;
+    const res = await fetch(API + '/api/app/' + id, { method: 'DELETE' });
+    const json = await res.json();
+    if (json.success) { toast('删除成功'); loadList(); }
+    else toast(json.message, 'error');
+}
+
+// 删除分包
 async function deleteItem(id, name) {
     if (!confirm('确定删除 "' + name + '" 吗？')) return;
     const res = await fetch(API + '/api/modules/' + id, { method: 'DELETE' });

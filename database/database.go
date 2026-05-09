@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"os"
 
 	_ "github.com/jackc/pgx/v5/stdlib"
 )
@@ -11,7 +12,13 @@ import (
 var DB *sql.DB
 
 func InitDB() {
-	dsn := "host=localhost port=5432 user=hero password=123456 dbname=pg_practice sslmode=disable"
+	var dsn string
+	if os.Getenv("GO_ENV") == "production" {
+		dsn = "host=localhost port=5432 user=hero password=123456 dbname=pg_practice sslmode=disable"
+	} else {
+		dsn = "host=43.134.31.40 port=5432 user=postgres password=7758258a dbname=pg_practice sslmode=disable"
+	}
+
 	var err error
 	DB, err = sql.Open("pgx", dsn)
 	if err != nil {
@@ -21,7 +28,12 @@ func InitDB() {
 	if err = DB.Ping(); err != nil {
 		log.Fatal("数据库连接失败: ", err)
 	}
-	fmt.Println("数据库连接成功")
+
+	env := "本地"
+	if os.Getenv("GO_ENV") == "production" {
+		env = "线上"
+	}
+	fmt.Printf("数据库连接成功 (%s环境)\n", env)
 
 	createTables()
 	migrateTables()

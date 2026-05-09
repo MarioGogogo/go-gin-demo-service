@@ -33,6 +33,14 @@ func main() {
 	// App更新检查
 	r.POST("/app/update", handler.CheckUpdate)
 
+	// App管理
+	appAPI := r.Group("/api/app")
+	{
+		appAPI.GET("", handler.GetAppList)
+		appAPI.POST("/upload", handler.UploadApp)
+		appAPI.DELETE("/:id", handler.DeleteApp)
+	}
+
 	// 模块管理
 	r.GET("/admin", handler.AdminPage)
 	api := r.Group("/api/modules")
@@ -54,6 +62,5 @@ func main() {
 	})
 
 	fmt.Println("服务已启动: http://localhost:8080")
-	fmt.Println("局域网访问: http://<你的IP>:8080")
 	r.Run("0.0.0.0:8080")
 }
