@@ -17,9 +17,11 @@ import (
 )
 
 const modulesDir = "./uploads/modules"
+const appDir = "./uploads/app"
 
 func init() {
 	os.MkdirAll(modulesDir, 0755)
+	os.MkdirAll(appDir, 0755)
 }
 
 func generateID() string {
@@ -91,23 +93,29 @@ func UploadModule(c *gin.Context) {
 	version := c.PostForm("version")
 	changelog := c.PostForm("changelog")
 	code := c.PostForm("code")
-	downloadUrl := c.PostForm("downloadUrl")
 
 	if moduleType == "" || version == "" {
 		c.JSON(http.StatusOK, model.Fail(model.CodeBadRequest, "类型和版本号不能为空"))
 		return
 	}
-	if moduleType == "hotel-module" && name == "" {
-		c.JSON(http.StatusOK, model.Fail(model.CodeBadRequest, "功能名称不能为空"))
+	if moduleType == "hotel-module" && (name == "" || code == "") {
+		c.JSON(http.StatusOK, model.Fail(model.CodeBadRequest, "功能名称和模块编码不能为空"))
 		return
-	}
-	if moduleType == "app" {
-		name = "App"
 	}
 
 	id := generateID()
-	fileName := id + "_" + file.Filename
-	savePath := filepath.Join(modulesDir, fileName)
+
+	// 分包保存到 uploads/modules/{code}.chunk.bundle
+	var saveDir, saveFileName, downloadUrl string
+	scheme := "http"
+	if c.Request.TLS != nil || c.GetHeader("X-Forwarded-Proto") == "https" {
+		scheme = "https"
+	}
+	saveDir = modulesDir
+	saveFileName = code + ".chunk.bundle"
+	downloadUrl = fmt.Sprintf("%s://%s/download/%s", scheme, c.Request.Host, saveFileName)
+
+	savePath := filepath.Join(saveDir, saveFileName)
 
 	if err := c.SaveUploadedFile(file, savePath); err != nil {
 		c.JSON(http.StatusOK, model.Fail(model.CodeServerError, "文件保存失败"))
@@ -115,28 +123,6 @@ func UploadModule(c *gin.Context) {
 	}
 
 	now := time.Now()
-
-	// App类型：查找已有app记录进行覆盖
-	if moduleType == "app" {
-		var existID string
-		var existPath string
-		err := database.DB.QueryRow("SELECT id, file_path FROM modules WHERE type = 'app' LIMIT 1").Scan(&existID, &existPath)
-		if err == nil {
-			// 追加版本历史
-			database.DB.Exec("INSERT INTO version_histories (module_id, version, file_name, file_size, changelog, created_at) VALUES ($1, $2, $3, $4, $5, $6)",
-				existID, version, file.Filename, file.Size, changelog, now)
-			// 更新模块信息
-			database.DB.Exec("UPDATE modules SET version=$1, file_name=$2, file_path=$3, file_size=$4, changelog=$5, updated_at=$6 WHERE id=$7",
-				version, file.Filename, savePath, file.Size, changelog, now, existID)
-			if existPath != "" {
-				os.Remove(existPath)
-			}
-			// 返回更新后的数据
-			m := model.Module{ID: existID, Name: name, Type: moduleType, Version: version, FileName: file.Filename, FilePath: savePath, FileSize: file.Size, Changelog: changelog, UpdatedAt: now}
-			c.JSON(http.StatusOK, model.OkWithMsg(m, "上传成功"))
-			return
-		}
-	}
 
 	// 分包类型：同名同类型覆盖
 	if moduleType == "hotel-module" {
